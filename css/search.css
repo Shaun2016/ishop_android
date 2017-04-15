@@ -1,0 +1,16 @@
+.search_btn{
+	float: right;
+	line-height: 44px;
+}
+.search_input{
+	width: 200px;
+	float: right;
+	margin-right: 10px;
+}
+#option{
+	float: right;
+	width: 55px;
+	height: 43px;
+	border-bottom:1px solid #000000;
+}
+

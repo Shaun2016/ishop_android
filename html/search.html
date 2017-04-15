@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/search.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="float: none;"></a>
+		    <div class="search_btn">
+				<a id="search" href="#">搜索</a>
+			</div>
+			<div class="mui-input-row mui-search mui-plus-visible search_input">
+				<input value="可乐" id="input" type="search" class="mui-input-speech mui-input-clear" placeholder="←选择商品/店铺">
+			</div>
+			<div class="mui-input mui-select" id="option">
+			    <select id="select" class="mui-btn" style="background-color: #F7F7F7;">
+			    <option value="1">商品</option>
+			    <option value="2">店铺</option>
+			    </select>
+			</div>
+		</header>
+		<div class="mui-content">
+       		<ul class="mui-table-view" id="goodListUl"></ul>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/h.min.js" ></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+				
+			})
+			
+			document.getElementById("search").addEventListener('tap',function(){
+				var input = document.getElementById('input').value;
+				var option = document.getElementById('select').value;
+				console.log(option + input);
+				if(input.trim() == '') {
+					mui.toast('请输入搜索信息');
+				}
+				if(option == 1) {
+					mui.ajax(url+'good/find',{
+						data: {
+							name: input
+						},
+						dataType: 'json',
+						type: 'get',
+						timeout: 10000,
+						success: function(data) {
+							console.log(JSON.stringify(data));
+							showGood(data);
+						},
+						error: function(type) {
+							console.log(type);
+						}
+					})
+				} else {
+					mui.ajax(url+'shop/find',{
+						data: {
+							input: input
+						},
+						dataType: 'json',
+						type: 'get',
+						timeout: 10000,
+						success: function(data) {
+							console.log(JSON.stringify(data));
+							showShop(data);
+						},
+						error: function(type) {
+							console.log(type);
+						}
+					})
+				}
+			})
+			
+			function showGood(data) {
+				var goodList = '';
+				for(var i=0; i<data.length; i++) {
+					var goodItem = '<li class="mui-table-view-cell mui-media">'+
+								        '<a href="javascript:goodDetail('+data[i].id+');">'+
+								            '<img class="mui-media-object mui-pull-left pic" src="../img/60x60.gif">'+
+								            '<div class="mui-media-body">'+
+								                data[i].name+
+								                '<p class="mui-ellipsis">'+data[i].info+'</br>'+data[i].shop.address+'</br>￥：'+data[i].price+'</br>本月销量：'+data[i].sellnum+'</p>'+
+								            '</div></a></li>';
+					goodList += goodItem;
+				}
+				document.getElementById('goodListUl').innerHTML = goodList;
+			}
+			
+			function showShop(data) {
+				var shopList = '';
+				for(var i=0;i<data.length;i++) {
+					var shopItem = '<li class="mui-table-view-cell mui-media">'+
+								        '<a href="javascript:shopDetail('+data[i].id+');">'+
+								            '<img class="mui-media-object mui-pull-left pic" src="../img/60x60.gif">'+
+								            '<div class="mui-media-body">'+
+								                data[i].name+
+								                '<p class="mui-ellipsis">'+data[i].info+'</br>'+data[i].address+'</br>'+data[i].tab+'</br>粉丝：'+data[i].fansnum+'</p>'+
+								            '</div></a></li>';
+					shopList += shopItem;
+				}
+				document.getElementById('goodListUl').innerHTML = shopList;
+			}
+			
+			function goodDetail(id) {
+				mui.openWindow({
+					url: 'goodDetail.html',
+					id : 'goodDetail.html',
+					extras: {
+						goodId : id
+					}
+				})
+			}
+			
+			function shopDetail(id) {
+				mui.openWindow({
+					url: 'shopDetail.html',
+					id : 'shopDetail.html',
+					extras: {
+						shopId : id
+					}
+				})
+			}
+			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="css/index.css" />
+	<link rel="stylesheet" type="text/css" href="css/icons-extra.css"/>
+</head>
+<body>
+	<header id="suggestHead" class="mui-bar mui-bar-nav bng">
+		<div id="logo"><img src="" width="50"/></div>
+		<div id="searchBtn">
+			请输入商品/店铺	
+		</div>	
+	</header>
+	<header id="otherHead" class="mui-bar mui-bar-nav" hidden="true">
+	    <h1 class="mui-title"></h1>
+	</header>
+	<nav class="mui-bar mui-bar-tab" id="nav-Footer">
+	    <a id="nav1" class="mui-tab-item mui-active">
+	        <span class="mui-icon mui-icon-home"></span>
+	        <span id="span1" class="mui-tab-label">推荐</span>
+	    </a>
+	    <a id="nav2" class="mui-tab-item">
+	        <span class="mui-icon mui-icon-chatboxes"></span> 
+	        <span id="span2" class="mui-tab-label">消息</span>
+	    </a>
+	    <a id="nav3" class="mui-tab-item">
+	        <span class="mui-icon mui-icon-extra mui-icon-extra-cart"></span>
+	        <span id="span3" class="mui-tab-label">购物车</span>
+	    </a>
+	    <a id="nav4" class="mui-tab-item">
+	        <span class="mui-icon mui-icon-contact"></span>
+	        <span id="span4" class="mui-tab-label">我的</span>
+	    </a>
+	</nav>
+	<div class="mui-content">
+	    
+	</div>
+	<script src="js/mui.min.js"></script>
+	<script src="js/h.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+      	mui.init({
+      		subpages: [
+      			{
+	      			url: 'html/suggest.html',
+	      			id : 'html/suggest.html',
+	      			styles : {
+	      				top :'44px', bottom:'44px', width:"100%"
+	      			}
+      			},
+      			{
+	      			url: 'html/news.html',
+	      			id : 'html/news.html',
+	      			styles : {
+	      				top :'44px', bottom:'44px', width:"100%", left:"100%"
+	      			}
+      			},
+      			{
+	      			url: 'html/cart.html',
+	      			id : 'html/cart.html',
+	      			styles : {
+	      				top :'44px', bottom:'44px', width:"100%", left:"200%"
+	      			}
+      			},
+      			{
+	      			url: 'html/me.html',
+	      			id : 'html/me.html',
+	      			styles : {
+	      				top :'44px', bottom:'44px', width:"100%", left:"300%"
+	      			}
+      			}
+      		]
+      	});
+      	mui.plusReady(function(){
+      		
+      	})
+      	h('#nav1').tap(function(){changSub(1)});
+		h('#nav2').tap(function(){changSub(2)});
+		h('#nav3').tap(function(){changSub(3)});
+		h('#nav4').tap(function(){changSub(4)});
+		
+		var _index = 1;
+		
+		function changSub(index) {
+			var sub1 = plus.webview.getWebviewById('html/suggest.html');
+		    var sub2 = plus.webview.getWebviewById('html/news.html');
+		    var sub3 = plus.webview.getWebviewById('html/cart.html');
+		    var sub4 = plus.webview.getWebviewById('html/me.html');
+		    sub1.setStyle({left: (1 - index) * 100 + '%'});
+		    sub2.setStyle({left: (2 - index) * 100 + "%"});
+		    sub3.setStyle({left: (3 - index) * 100 + "%"});
+		    sub4.setStyle({left: (4 - index) * 100 + "%"});
+		    if(index != 1) {
+		    	h('#otherHead').show();
+		    	h('#suggestHead').hide();
+		    	h('.mui-title').html(h("#span"+index).html());
+		    } else {
+		    	h('#otherHead').hide();
+		    	h('#suggestHead').show();
+		    }
+		    _index = index;
+		}
+      	
+      	document.getElementById('searchBtn').addEventListener('tap',function() {
+      		mui.openWindow({
+      			url: 'html/search.html',
+      			id : 'html/search.html'
+      		})
+      	})
+   </script>
+</body>
+</html>

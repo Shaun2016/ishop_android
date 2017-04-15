@@ -1,0 +1,134 @@
+{
+	"index.html": {
+		"resources": [
+			"css/index.css",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"img/logo.jpg",
+			"img/logo.png",
+			"img/8704065_154918779174_2.jpg",
+			"css/hui.css",
+			"img/searchBut.png",
+			"fonts/mui.ttf",
+			"img/购物车.png",
+			"css/icons-extra.css",
+			"fonts/mui-icons-extra.ttf",
+			"js/h.min.js",
+			"html/cart.html",
+			"html/suggest.html"
+		],
+		"refer": [
+			"html/me.html",
+			"html/cart.html",
+			"html/news.html",
+			"html/suggest.html",
+			"html/login/login.html",
+			"html/search.html"
+		]
+	},
+	"html/cart.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css"
+		]
+	},
+	"html/suggest.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css"
+		]
+	},
+	"html/news.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css"
+		]
+	},
+	"html/me.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"fonts/mui.ttf",
+			"js/h.min.js",
+			"html/login/css/style.css",
+			"html/login/images/user-photo.png"
+		],
+		"refer": [
+			"html/login/login.html"
+		]
+	},
+	"html/login/login.html": {
+		"resources": [
+			"html/login/js/app.js",
+			"html/login/js/mui.enterfocus.js",
+			"html/login/css/mui.min.css",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"html/login/forget_password.html",
+			"html/login/reg.html"
+		]
+	},
+	"html/login/forget_password.html": {
+		"resources": [
+			"html/login/js/app.js",
+			"html/login/css/style.css",
+			"html/login/css/mui.min.css",
+			"html/login/js/mui.min.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		]
+	},
+	"html/login/reg.html": {
+		"resources": [
+			"html/login/css/style.css",
+			"html/login/css/mui.min.css",
+			"/js/mui.min.js",
+			"html/login/js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"html/me.html",
+			"index.html"
+		]
+	},
+	"html/search.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/search.css",
+			"img/60x60.gif",
+			"css/mui.css",
+			"js/h.min.js"
+		],
+		"refer": [
+			"html/goodDetail.html"
+		]
+	},
+	"html/goodDetail.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"fonts/mui-icons-extra.ttf",
+			"css/icons-extra.css"
+		],
+		"refer": [
+			"index.html",
+			"html/shopDetail.html"
+		]
+	},
+	"html/shopDetail.html": {
+		"resources": [
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"fonts/mui.ttf"
+		]
+	}
+}

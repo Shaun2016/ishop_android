@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css" />
+		<style>
+			.mui-plus .plus {
+				display: inline;
+			}
+			
+			.plus {
+				display: none;
+			}
+			
+			#topPopover {
+				position: fixed;
+				top: 16px;
+				right: 6px;
+			}
+			
+			#topPopover .mui-popover-arrow {
+				left: auto;
+				right: 6px;
+			}
+			
+			p {
+				text-indent: 22px;
+			}
+			
+			.mui-popover {
+				width: 130px;
+				height: 200px;
+			}
+			
+			.downToTop {
+				padding-top: 10px;
+			}
+			
+			.goodInfo {
+				display: block;
+				float: left;
+				width: 30%;
+			}
+			
+			.dollar {
+				font-size: 35px;
+				color: #FFD700;
+			}
+			
+			.decimal {
+				color: #FFD700;
+				font-size: 20px;
+			}
+			
+			.shopInfo {
+				width: 30%;
+				height: 40px;
+				border-right: 1px solid #555555;
+				float: left;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
+			<h1 id="title" class="mui-title"></h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-card">
+				<!--内容区-->
+				<div class="mui-card-content">
+					<img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2731824066,2164570968&fm=23&gp=0.jpg" />
+				</div>
+				<!--页脚，放置补充信息或支持的操作-->
+				<div class="mui-card-footer">
+					<a href="#" class="mui-card-link"><span class="mui-icon-extra mui-icon-extra-heart"></span></a>
+					<a href="#" class="mui-card-link">评论</a>
+					<a href="#" class="mui-card-link"><span class="mui-icon-extra mui-icon-extra-share"></span></a>
+				</div>
+			</div>
+			<div>
+				<p id="info"></p>
+				<p class="dollar">￥<span id="integer" class="dollar"></span>.<span id="decimal" class="decimal"></span></p>
+				<p class="goodInfo">快递费 <span id="deliveryFee"></span></p>
+				<p class="goodInfo">月销 <span id="sellNum"></span> 笔</p>
+				<p id="address"></p>
+			</div>
+
+			<div>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-collapse">
+						<a class="mui-navigate-right" href="#">宝贝评论(<span id="commentNum">111</span>)</a>
+						<div class="mui-collapse-content">
+							<p>面板1子内容</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="downToTop">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-media">
+						<img id="shopHead" class="mui-media-object mui-pull-left" src="">
+						<div class="mui-media-body">
+							<h4 id="shopName"></h4>
+							<p id="shopInfo" class='mui-ellipsis'></p>
+						</div>
+						<div class="mui-content-padded">
+							<div class="shopInfo">
+								<p>111</p>
+								<p>全部宝贝</p>
+							</div>
+							<div class="shopInfo">
+								<p>111</p>
+								<p>火热促销</p>
+							</div>
+							<div>
+								<p>111</p>
+								<p>关注人数</p>
+							</div>
+						</div>
+						<div class="mui-content-padded downToTop">
+							<button type="button" class="mui-btn mui-btn-warning mui-btn-outlined" style="margin-right: 50px; margin-left: 40px;">查看分类</button>
+							<button id="enter_shop" type="button" class="mui-btn mui-btn-danger mui-btn-outlined">进店看看</button>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--
+        	作者：shaunjm2018@gmail.com
+        	时间：2017-04-15
+        	描述：折叠面板下的内容 
+        -->
+		<div id="topPopover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a href="#"><span class="mui-icon mui-icon-chatboxes"></span> 消息</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a id="toHome" href="#"><span class="mui-icon mui-icon-home"></span> 首页</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a href="#"><span class="mui-icon mui-icon-extra mui-icon-extra-custom"></span> 帮助</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a href="#"><span class="mui-icon mui-icon-extra mui-icon-extra-share"></span> 分享</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function() {
+				var goodId = plus.webview.currentWebview().goodId;
+				mui.ajax(url + 'good/show', {
+					data: {
+						id: goodId
+					},
+					dataType: 'json',
+					type: 'get',
+					timeout: 10000,
+					success: function(data) {
+						console.log(JSON.stringify(data));
+						showGoodDetail(data);
+					},
+					error: function(type) {
+						console.log(type);
+					}
+				})
+			})
+
+			var shopId = null;
+
+			function showGoodDetail(data) {
+				shopId = data.shop.id;
+				document.getElementById('title').innerHTML = data.name;
+				document.getElementById('info').innerHTML = data.info;
+				document.getElementById('deliveryFee').innerHTML = data.deliveryFee;
+				document.getElementById('sellNum').innerHTML = data.sellnum;
+				document.getElementById('address').innerHTML = data.shop.address;
+				document.getElementById('shopName').innerHTML = data.shop.name;
+				document.getElementById('shopInfo').innerHTML = data.shop.info;
+				var price = data.price;
+				document.getElementById('integer').innerHTML = parseInt(price);
+				document.getElementById('decimal').innerHTML = price = parseInt(price);
+				document.getElementById('shopHead').src = url + 'img/' + data.shop.head;
+			}
+
+			document.getElementById("toHome").addEventListener('tap', function() {
+				plus.webview.currentWebview().close();
+				plus.webview.getWebviewById('html/search.html').close();
+			})
+			
+			document.getElementById('enter_shop').addEventListener('tap',function(){
+				if(shopId == null) return;
+				mui.openWindow({
+					url: 'shopDetail.html',
+					id : 'shopDetail.html',
+					extras: {
+						shopId : shopId
+					}
+				})
+			})
+		</script>
+	</body>
+
+</html>
