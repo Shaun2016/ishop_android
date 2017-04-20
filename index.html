@@ -79,7 +79,10 @@
       	})
       	h('#nav1').tap(function(){changSub(1)});
 		h('#nav2').tap(function(){changSub(2)});
-		h('#nav3').tap(function(){changSub(3)});
+		h('#nav3').tap(function(){
+			changSub(3);
+			plus.webview.getWebviewById("html/cart.html").evalJS("showCart();");
+		});
 		h('#nav4').tap(function(){changSub(4)});
 		
 		var _index = 1;

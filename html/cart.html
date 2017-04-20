@@ -5,14 +5,53 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.css" rel="stylesheet" />
 	</head>
 
 	<body>
-		cart
+		<div class="mui-content">
+		    <ul class="mui-table-view" id="goodListUl"></ul>
+		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			var userId = null;
+			mui.plusReady(function() {
+				
+			});
+			
+			
+			function showCart() {
+				userId = plus.storage.getItem('userId');
+				if(userId == null) {
+					document.getElementById('goodListUl').innerHTML = "";
+					return;
+				}
+				mui.getJSON(url+'user/myShopCar',{userId:userId},function(data){
+					var goodList = '';
+					for(var i=0;i<data.length;i++) {
+						var goodItem = '<li class="mui-table-view-cell mui-media">'+
+									        '<a href="javascript:goodDetail('+data[i].good.id+');">'+
+									            '<img class="mui-media-object mui-pull-left pic" src="../img/60x60.gif">'+
+									            '<div class="mui-media-body">'+
+									                data[i].good.name+
+									                '<p class="mui-ellipsis">'+data[i].good.info+'</br>'+data[i].good.shop.name+'</br>'+data[i].num+'</br>'+data[i].time+'</p>'+
+									            '</div></a></li>';
+						goodList += goodItem;
+					}
+					document.getElementById('goodListUl').innerHTML = goodList;
+				})
+			}
+			
+			function goodDetail(id) {
+				mui.openWindow({
+					url: 'goodDetail.html',
+					id : 'goodDetail.html',
+					extras: {
+						goodId : id
+					}
+				})
+			}
 		</script>
 	</body>
 

@@ -17,7 +17,7 @@
 			}
 			
 			#topPopover {
-				position: fixed;
+				//position: fixed;
 				top: 16px;
 				right: 6px;
 			}
@@ -62,6 +62,37 @@
 				border-right: 1px solid #555555;
 				float: left;
 			}
+			.toolBar {
+				position: fixed;
+				bottom: 0px;
+				width: 100%;
+				height: 44px;
+				border-top: 1px solid #C7C7CC;
+				background: #FFFFFF;
+				text-align:center;
+			}
+			.toolBar p {
+				text-indent: 0;
+			}
+			.toolBarBox {
+				float: left;
+				width: 14%;
+				height: 44px;
+				border-right:1px solid #C7C7CC;
+				text-align:center;
+			}
+			.toolBarBox2 {
+				float: left;
+				width: 29%;
+				height: 44px;
+				line-height: 44px;
+			}
+			.toolBarFont {
+				font-size: 11px;
+			}
+			.toolBarFont2 {
+				color: #FFFFFF;
+			}
 		</style>
 	</head>
 
@@ -71,7 +102,7 @@
 			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
 			<h1 id="title" class="mui-title"></h1>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" style="margin-bottom: 44px;">
 			<div class="mui-card">
 				<!--内容区-->
 				<div class="mui-card-content">
@@ -80,7 +111,7 @@
 				<!--页脚，放置补充信息或支持的操作-->
 				<div class="mui-card-footer">
 					<a href="#" class="mui-card-link"><span class="mui-icon-extra mui-icon-extra-heart"></span></a>
-					<a href="#" class="mui-card-link">评论</a>
+					<a id="comment" href="#" class="mui-card-link">评论</a>
 					<a href="#" class="mui-card-link"><span class="mui-icon-extra mui-icon-extra-share"></span></a>
 				</div>
 			</div>
@@ -131,6 +162,13 @@
 					</li>
 				</ul>
 			</div>
+			<div class="toolBar">
+				<div class="toolBarBox"><a href="#"><span class="mui-icon-extra mui-icon-extra-custom" style="color: #4DFFFF;"></span><p class="toolBarFont">客服</p></a></div>
+				<div class="toolBarBox"><a id="a_enter_shop"><span class="mui-icon-extra mui-icon-extra-classroom" style="color: #8F8F94;"></span><p class="toolBarFont">店铺</p></a></div>
+				<div class="toolBarBox"><a id="icon-star"><span class="mui-icon mui-icon-star" style="color: #F0AD4E;"></span><p id="CollectP" class="toolBarFont">收藏</p></a></div>
+				<div class="toolBarBox2"><a id="enter_cart" href="#" disabled="true"><p id="p_cart" class="toolBarFont2" style="background: #FF9224;">加入购物车</p></a></div> 
+				<div class="toolBarBox2"><a id="buy" href="#"><p class="toolBarFont2" style="background: red;">立即购买</p></a></div>
+			</div>
 		</div>
 		<!--
         	作者：shaunjm2018@gmail.com
@@ -159,10 +197,16 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/h.min.js"></script>
+		<script src="js/isLogin.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			var goodId = null;
+			var userId = null;
+			var isCollected = false;
+			var isCart = false;
 			mui.plusReady(function() {
-				var goodId = plus.webview.currentWebview().goodId;
+				goodId = plus.webview.currentWebview().goodId;
 				mui.ajax(url + 'good/show', {
 					data: {
 						id: goodId
@@ -177,7 +221,9 @@
 					error: function(type) {
 						console.log(type);
 					}
-				})
+				});
+				
+				initUserInfo();
 			})
 
 			var shopId = null;
@@ -202,7 +248,11 @@
 				plus.webview.getWebviewById('html/search.html').close();
 			})
 			
-			document.getElementById('enter_shop').addEventListener('tap',function(){
+			document.getElementById('enter_shop').addEventListener('tap',enter_shop);
+			
+			document.getElementById('a_enter_shop').addEventListener('tap',enter_shop);
+			
+			function enter_shop() {
 				if(shopId == null) return;
 				mui.openWindow({
 					url: 'shopDetail.html',
@@ -211,6 +261,133 @@
 						shopId : shopId
 					}
 				})
+			}
+			
+			document.getElementById("icon-star").addEventListener('tap',function() {
+				if(userId == null) {
+					mui.toast("您还未登录,请登录");
+					goLogin();
+					return;
+				} 
+				if(isCollected) {
+					mui.ajax(url+'good/removeCollect',{
+						data: {
+							userId: userId,
+							goodId: goodId
+						},
+						dataType: 'json',
+						type: 'get',
+						timeout: 10000,
+						success: function(data) {
+							h('.mui-icon-star').removeClass('mui-icon-star-filled');
+							h('#CollectP').html('收藏');
+							isCollected = false;
+						},
+						error: function(error) {
+							
+						}
+					})
+					} else {
+						mui.ajax(url+'good/collect',{
+						data: {
+							userId: userId,
+							goodId: goodId
+						},
+						dataType: 'json',
+						type: 'get',
+						timeout: 10000,
+						success: function(data) {
+							isCollected = true;
+							h('.mui-icon-star').addClass('mui-icon-star-filled');
+							h('#CollectP').html('已收藏');
+						},
+						error: function(error) {
+							
+						}
+					})
+				}
+			})
+			
+			document.getElementById('comment').addEventListener('tap',function() {
+				mui.openWindow({
+					url: 'comment.html',
+					id : 'comment.html',
+					extras: {
+						goodId: goodId
+					}
+				})
+			})
+			document.getElementById('enter_cart').addEventListener('tap',function(){
+				if(userId == null) {
+					mui.toast("您还未登录,请登录");
+					goLogin();
+					return;
+				}
+				if(isCart) {
+					mui.toast('已加入购物车，快去购买吧')
+					return;
+				}
+				isCart = true;
+				mui.ajax(url+'good/addShopCar',{
+					data: {
+						userId: userId,
+						goodId: goodId,
+						num   : 1
+					},
+					dataType: 'json',
+					type: 'get',
+					timeout: 10000,
+					success: function(data) {
+						console.log(JSON.stringify(data));
+						h('#p_cart').html('已加入购物车');
+						document.getElementById('enter_cart').style.disable = 'true';
+					},
+					error: function(type) {
+						console.log(type);
+					}
+				})
+			});
+			
+			function initUserInfo() {
+				userId = plus.storage.getItem('userId');
+				if(userId == null) return;
+				mui.ajax(url+'good/isCollected',{
+					data: {
+						userId: userId,
+						goodId: goodId
+					},
+					dataType: 'json',
+					type: 'get',
+					timeout: 10000,
+					success: function(data) {
+						if(data.data) {
+							isCollected = true;								
+							h('.mui-icon-star').addClass('mui-icon-star-filled');
+							h('#CollectP').html('已收藏');
+						}
+					},
+					error: function(type) {
+						console.log(type);
+					}
+				});
+				/*
+				 * 判读用户是否将该商品添加进购物车
+				 */
+				mui.getJSON(url+'good/checkCart',{
+					userId: userId,
+					goodId: goodId
+				},
+				function(data){
+					console.log(JSON.stringify(data));
+					if(data.code == 0) {
+						isCart = true;
+						h('#p_cart').html('已加入购物车');
+					}
+				})
+			}
+			
+			document.getElementById('buy').addEventListener('tap',function(){
+				
 			})
 		</script>
 	</body>

@@ -29,13 +29,21 @@
 	"html/cart.html": {
 		"resources": [
 			"js/mui.min.js",
-			"css/mui.min.css"
+			"css/mui.min.css",
+			"img/60x60.gif",
+			"css/mui.css"
+		],
+		"refer": [
+			"html/goodDetail.html"
 		]
 	},
 	"html/suggest.html": {
 		"resources": [
 			"js/mui.min.js",
 			"css/mui.min.css"
+		],
+		"refer": [
+			"html/login/login.html"
 		]
 	},
 	"html/news.html": {
@@ -54,7 +62,8 @@
 			"html/login/images/user-photo.png"
 		],
 		"refer": [
-			"html/login/login.html"
+			"html/login/login.html",
+			"html/me/address.html"
 		]
 	},
 	"html/login/login.html": {
@@ -64,7 +73,8 @@
 			"html/login/css/mui.min.css",
 			"js/mui.min.js",
 			"fonts/mui.ttf",
-			"css/mui.min.css"
+			"css/mui.min.css",
+			"html/login/js/init.js"
 		],
 		"refer": [
 			"html/login/forget_password.html",
@@ -117,11 +127,16 @@
 			"fonts/mui.ttf",
 			"css/mui.min.css",
 			"fonts/mui-icons-extra.ttf",
-			"css/icons-extra.css"
+			"css/icons-extra.css",
+			"js/h.min.js",
+			"js/isLogin.js",
+			"html/js/isLogin.js"
 		],
 		"refer": [
 			"index.html",
-			"html/shopDetail.html"
+			"html/shopDetail.html",
+			"html/comment.html",
+			"html/login/temp_login.html"
 		]
 	},
 	"html/shopDetail.html": {
@@ -129,6 +144,45 @@
 			"css/mui.min.css",
 			"js/mui.min.js",
 			"fonts/mui.ttf"
+		]
+	},
+	"html/feedback.html": {
+		"resources": [
+			"html/js/feedback.js",
+			"html/css/feedback.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		]
+	},
+	"html/comment.html": {
+		"resources": [
+			"html/js/feedback.js",
+			"html/css/feedback.css",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"html/js/comment.js",
+			"js/h.min.js"
+		]
+	},
+	"html/login/temp_login.html": {
+		"resources": [
+			"html/login/js/app.js",
+			"html/login/js/mui.enterfocus.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"html/login/js/init.js",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"html/login/reg.html"
+		]
+	},
+	"html/me/address.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css"
 		]
 	}
 }

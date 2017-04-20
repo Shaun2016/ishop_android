@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">收货地址</h1>
+		    <a class="mui-pull-right" style="line-height: 44px;">管理</a>
+		</header>
+		<div class="mui-content">
+		    <ul id="addrListUl" class="mui-table-view"></ul>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function(){
+				getAddress();
+			});
+			function getAddress() {
+				var userId = plus.storage.getItem("userId");
+				if(userId == null) {
+					mui.toast("您还没登录");
+					return;
+				}
+				mui.getJSON(url+'user/myAddress',{userId:userId},function(data){
+					showAddress(data);
+				})
+				
+				function showAddress(data) {
+					var addrList = '';
+					for(var i=0; i<data.length; i++) {
+						var addrItem = '<li class="mui-table-view-cell">'+
+									        '<div class="mui-media-body">'+
+									            '收货人:'+data[i].receiver+'&nbsp;&nbsp;&nbsp;&nbsp'+data[i].phone+
+									            '<p class="mui-ellipsis">'+'地址：'+data[i].location+'</p>'+
+									        '</div><button class">删除</button></li>';
+						addrList += addrItem;
+					}
+					document.getElementById('addrListUl').innerHTML = addrList;
+				}
+			}
+		</script>
+	</body>
+
+</html>

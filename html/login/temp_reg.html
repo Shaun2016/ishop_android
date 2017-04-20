@@ -114,7 +114,7 @@
 								plus.storage.setItem('phone',data.data.phone);
 								mui.toast('注册成功');
 								pageInit();
-								openMe();
+								mui.back();
 							} else {
 								mui.toast(data.msg);
 							}
@@ -126,12 +126,6 @@
 				})
 			})
 			
-			function openMe(nickname,head) {
-				mui.openWindow({
-					url: '../me.html',
-					id : '../me.html'
-				})
-			}
 		</script>
 	</body>
 

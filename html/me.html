@@ -31,8 +31,8 @@
 							</a>
 						</li>
 						<li class="mui-table-view-cell">
-							<a class="mui-navigate-right">
-								隐私
+							<a id="myAddress" class="mui-navigate-right">
+								我的地址
 							</a>
 						</li>
 						<li class="mui-table-view-cell">
@@ -99,6 +99,7 @@
 			}
 
 			function logout() {
+				plus.storage.removeItem('userId');
 				plus.storage.removeItem('nickname');
 				plus.storage.removeItem('head');
 				plus.storage.removeItem('phone');
@@ -107,6 +108,13 @@
 				_index.evalJS("changSub(1);h('#nav-Footer').find('a').removeClass('mui-active');h('#nav1').addClass('mui-active')");
 				isLogin();
 			}
+			
+			document.getElementById("myAddress").addEventListener('tap',function(){
+				mui.openWindow({
+					url: 'me/address.html',
+					id : 'me/address.html'
+				})
+			})
 		</script>
 	</body>
 

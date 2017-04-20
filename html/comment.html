@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" class="feedback">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>商家评论</title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/feedback.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<button id="submit" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">发送</button>
+			<h1 class="mui-title">问题反馈</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<div class="mui-inline">问题和意见</div>
+				<a class="mui-pull-right mui-inline" href="#popover">
+					快捷输入
+					<span class="mui-icon mui-icon-arrowdown"></span>
+				</a>
+				<!--快捷输入具体内容，开发者可自己替换常用语-->
+				<div id="popover" class="mui-popover">
+					<div class="mui-popover-arrow"></div>
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<ul class="mui-table-view">
+								<!--仅流应用环境下显示-->
+								<li class="mui-table-view-cell"><a href="#">作者是智障啊</a></li>
+								<li class="mui-table-view-cell"><a href="#">界面显示错乱</a></li>
+								<li class="mui-table-view-cell"><a href="#">启动缓慢，卡出翔了</a></li>
+								<li class="mui-table-view-cell"><a href="#">偶发性崩溃</a></li>
+								<li class="mui-table-view-cell"><a href="#">UI无法直视，丑哭了</a></li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="row mui-input-row">
+				<textarea id='question' class="mui-input-clear question" placeholder="请详细描述你的问题和意见..."></textarea>
+			</div>
+			<div class="mui-content-padded">
+				<div class="mui-inline">商品评分</div>
+				<div class="icons mui-inline" style="margin-left: 6px;">
+					<i data-index="1" class="mui-icon mui-icon-star"></i>
+					<i data-index="2" class="mui-icon mui-icon-star"></i>
+					<i data-index="3" class="mui-icon mui-icon-star"></i>
+					<i data-index="4" class="mui-icon mui-icon-star"></i>
+					<i data-index="5" class="mui-icon mui-icon-star"></i>
+				</div>
+			</div><br />
+			<button type="button" class="mui-btn mui-btn-success mui-btn-block">清空</button>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/h.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var userId = null;
+			var goodId = null;
+			var size = null;
+			var starIndex = 0;
+			mui.plusReady(function(){
+				userId = plus.storage.getItem('userId');
+				goodId = plus.webview.currentWebview().goodId;
+			})
+			
+			var feedback = {
+				question: document.getElementById('question'), 
+				imageList: document.getElementById('image-list'),
+			};
+			
+			feedback.clearForm = function() {
+				feedback.question.value = '';
+				index = 0;
+				size = 0;
+				starIndex = 0;
+				//清除所有星标
+				mui('.icons i').each(function (index,element) {
+					if (element.classList.contains('mui-icon-star-filled')) {
+						element.classList.add('mui-icon-star')
+			  			element.classList.remove('mui-icon-star-filled')
+					}
+				})
+			};
+			
+			//应用评分
+			 mui('.icons').on('tap','i',function(){
+			  	var index = parseInt(this.getAttribute("data-index"));
+			  	var parent = this.parentNode;
+			  	var children = parent.children;
+			  	if(this.classList.contains("mui-icon-star")){
+			  		for(var i=0;i<index;i++){
+		  				children[i].classList.remove('mui-icon-star');
+		  				children[i].classList.add('mui-icon-star-filled');
+			  		}
+			  	}else{
+			  		for (var i = index; i < 5; i++) {
+			  			children[i].classList.add('mui-icon-star')
+			  			children[i].classList.remove('mui-icon-star-filled')
+			  		}
+			  	}
+			  	starIndex = index;
+		  });
+		  	//选择快捷输入
+			mui('.mui-popover').on('tap','li',function(e){
+			  document.getElementById("question").value = document.getElementById("question").value + this.children[0].innerHTML;
+			  mui('.mui-popover').popover('toggle')
+			})
+			
+			document.getElementsByClassName('mui-btn-block')[0].addEventListener('tap',feedback.clearForm);
+			
+			document.getElementById('submit').addEventListener('tap',function(){
+				console.log(userId + ","+goodId);
+				mui.getJSON(url+'user/comment',{
+					userId: userId,
+					goodId: goodId,
+					content: document.getElementById('question').value,
+					star   : starIndex
+				},function(data){
+					console.log(JSON.stringify(data));
+				})
+			})
+		</script>
+	</body>
+
+</html>
