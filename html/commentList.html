@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			p {
+				display: inline;
+			}
+			#stars {
+				float: right;
+				width: 50px;
+				height: 25px;
+			}
+			#stars i {
+				font-size: 10px;
+			}
+			#stars .mui-icon-star-filled{
+				color: #FFB400;
+				font-size: 10px;
+			} 
+			#stars .mui-icon-star {
+				color: #C8C7CC;
+			}
+			#ctime {
+				float: right;
+				display: inline;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">评论列表</h1>
+		</header>
+		<div class="mui-content">
+		    <ul class="mui-table-view" id="commentListUl"></ul>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+				var goodId = plus.webview.currentWebview().goodId;
+				var comment = plus.webview.currentWebview().comment;
+				drawComment(comment);
+			})
+			
+			function drawComment(data) {
+				var commentList = '';
+				var star = '';
+				var reply = '';
+				for(var i=0; i<data.length; i++) {
+					var j;
+					for(j=1;j<=data[i].star;j++) {
+						star += '<i class="mui-icon mui-icon-star-filled"></i>'
+					}
+					for(var k=0;k<5-data[i].star;k++) {
+						star += '<i class="mui-icon mui-icon-star"></i>'
+					}
+					if(data[i].reply != null) {
+						reply = '<li class="mui-table-view-cell mui-media" style="padding-left: 10px;"><p>——店家回复：</p><p>'+data[i].reply.content+'</p></li>'
+					}
+					var commentItem = '<li class="mui-table-view-cell mui-media" style="padding-left: 10px;">'+
+									            '<img class="mui-media-object mui-pull-left" src="'+ url + data[i].user.head +'">'+
+									            '<div class="mui-media-body">'+
+									                data[i].user.nickname +
+									                '<div id="ctime"><p>'+formatDate(new Date(data[i].time))+'</p></div></div><p class="mui-ellipsis">'+ data[i].content +'</p><div id="stars" class="icons mui-inline"  style="margin-left: 6px;">'+
+									                star +
+												'</div></li>';
+                	commentList += (commentItem + reply);
+                	star = '';
+                	reply = '';
+				}
+				document.getElementById('commentListUl').innerHTML = commentList;
+			}
+		</script>
+	</body>
+
+</html>

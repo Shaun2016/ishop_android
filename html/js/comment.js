@@ -5,6 +5,7 @@
  * @version:1.0.0
  * @author:cuihongbao@dcloud.io
  */
+
 (function() {
 	var index = 1;
 	var size = null;

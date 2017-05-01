@@ -223,7 +223,10 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"img/60x60.gif",
-					"css/mui.css"
+					"css/mui.css",
+					null,
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js"
 				],
 				"refer": [
 					"html/goodDetail.html"
@@ -233,10 +236,14 @@
 			"html/suggest.html": {
 				"resources": [
 					"js/mui.min.js",
-					"css/mui.min.css"
+					"css/mui.min.css",
+					"css/index.css",
+					"img/searchBut.png",
+					"css/mui.css"
 				],
 				"refer": [
-					"html/login/login.html"
+					"html/login/login.html",
+					"html/search.html"
 				],
 				"priority": 0
 			},
@@ -255,7 +262,8 @@
 					"fonts/mui.ttf",
 					"js/h.min.js",
 					"html/login/css/style.css",
-					"html/login/images/user-photo.png"
+					"html/login/images/user-photo.png",
+					null
 				],
 				"refer": [
 					"html/login/login.html",
@@ -316,7 +324,8 @@
 					"css/search.css",
 					"img/60x60.gif",
 					"css/mui.css",
-					"js/h.min.js"
+					"js/h.min.js",
+					"html/search_sub.html"
 				],
 				"refer": [
 					"html/goodDetail.html"
@@ -332,13 +341,17 @@
 					"css/icons-extra.css",
 					"js/h.min.js",
 					"js/isLogin.js",
-					"html/js/isLogin.js"
+					"html/js/isLogin.js",
+					"html/css/feedback.css",
+					"img/440×300.gif",
+					"img/zw.jpg"
 				],
 				"refer": [
 					"index.html",
 					"html/shopDetail.html",
 					"html/comment.html",
-					"html/login/temp_login.html"
+					"html/login/temp_login.html",
+					"html/commentList.html"
 				],
 				"priority": 0
 			},
@@ -395,6 +408,33 @@
 					"css/mui.css"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"html/commentList.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/search_sub.html": {
+				"resources": [
+					"js/h.min.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"img/60x60.gif",
+					"css/search.css",
+					"css/mui.css",
+					"fonts/mui.ttf",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js"
+				],
+				"refer": [
+					"html/shopDetail.html",
+					"html/goodDetail.html"
+				],
 				"priority": 0
 			}
 		},

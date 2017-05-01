@@ -31,7 +31,9 @@
 			"js/mui.min.js",
 			"css/mui.min.css",
 			"img/60x60.gif",
-			"css/mui.css"
+			"css/mui.css",
+			"js/mui.lazyload.js",
+			"js/mui.lazyload.img.js"
 		],
 		"refer": [
 			"html/goodDetail.html"
@@ -40,10 +42,14 @@
 	"html/suggest.html": {
 		"resources": [
 			"js/mui.min.js",
-			"css/mui.min.css"
+			"css/mui.min.css",
+			"css/index.css",
+			"img/searchBut.png",
+			"css/mui.css"
 		],
 		"refer": [
-			"html/login/login.html"
+			"html/login/login.html",
+			"html/search.html"
 		]
 	},
 	"html/news.html": {
@@ -115,10 +121,12 @@
 			"css/search.css",
 			"img/60x60.gif",
 			"css/mui.css",
-			"js/h.min.js"
+			"js/h.min.js",
+			"html/search_sub.html"
 		],
 		"refer": [
-			"html/goodDetail.html"
+			"html/goodDetail.html",
+			"html/search_sub.html"
 		]
 	},
 	"html/goodDetail.html": {
@@ -130,13 +138,17 @@
 			"css/icons-extra.css",
 			"js/h.min.js",
 			"js/isLogin.js",
-			"html/js/isLogin.js"
+			"html/js/isLogin.js",
+			"html/css/feedback.css",
+			"img/440×300.gif",
+			"img/zw.jpg"
 		],
 		"refer": [
 			"index.html",
 			"html/shopDetail.html",
 			"html/comment.html",
-			"html/login/temp_login.html"
+			"html/login/temp_login.html",
+			"html/commentList.html"
 		]
 	},
 	"html/shopDetail.html": {
@@ -183,6 +195,30 @@
 			"js/mui.min.js",
 			"fonts/mui.ttf",
 			"css/mui.css"
+		]
+	},
+	"html/commentList.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		]
+	},
+	"html/search_sub.html": {
+		"resources": [
+			"js/h.min.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"img/60x60.gif",
+			"css/search.css",
+			"css/mui.css",
+			"fonts/mui.ttf",
+			"js/mui.lazyload.js",
+			"js/mui.lazyload.img.js"
+		],
+		"refer": [
+			"html/shopDetail.html",
+			"html/goodDetail.html"
 		]
 	}
 }

@@ -5,19 +5,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title></title>
     <link href="css/mui.min.css" rel="stylesheet"/>
-	<link rel="stylesheet" href="css/index.css" />
 	<link rel="stylesheet" type="text/css" href="css/icons-extra.css"/>
 </head>
 <body>
-	<header id="suggestHead" class="mui-bar mui-bar-nav bng">
-		<div id="logo"><img src="" width="50"/></div>
-		<div id="searchBtn">
-			请输入商品/店铺	
-		</div>	
-	</header>
-	<header id="otherHead" class="mui-bar mui-bar-nav" hidden="true">
-	    <h1 class="mui-title"></h1>
-	</header>
 	<nav class="mui-bar mui-bar-tab" id="nav-Footer">
 	    <a id="nav1" class="mui-tab-item mui-active">
 	        <span class="mui-icon mui-icon-home"></span>
@@ -48,28 +38,28 @@
 	      			url: 'html/suggest.html',
 	      			id : 'html/suggest.html',
 	      			styles : {
-	      				top :'44px', bottom:'44px', width:"100%"
+	      				top:'0px', bottom:'44px', width:"100%"
 	      			}
       			},
       			{
 	      			url: 'html/news.html',
 	      			id : 'html/news.html',
 	      			styles : {
-	      				top :'44px', bottom:'44px', width:"100%", left:"100%"
+	      				top:'0px', bottom:'44px', width:"100%", left:"100%"
 	      			}
       			},
       			{
 	      			url: 'html/cart.html',
 	      			id : 'html/cart.html',
 	      			styles : {
-	      				top :'44px', bottom:'44px', width:"100%", left:"200%"
+	      				top:'0px', bottom:'44px', width:"100%", left:"200%"
 	      			}
       			},
       			{
 	      			url: 'html/me.html',
 	      			id : 'html/me.html',
 	      			styles : {
-	      				top :'44px', bottom:'44px', width:"100%", left:"300%"
+	      				top:'0px', bottom:'44px', width:"100%", left:"300%"
 	      			}
       			}
       		]
@@ -96,23 +86,9 @@
 		    sub2.setStyle({left: (2 - index) * 100 + "%"});
 		    sub3.setStyle({left: (3 - index) * 100 + "%"});
 		    sub4.setStyle({left: (4 - index) * 100 + "%"});
-		    if(index != 1) {
-		    	h('#otherHead').show();
-		    	h('#suggestHead').hide();
-		    	h('.mui-title').html(h("#span"+index).html());
-		    } else {
-		    	h('#otherHead').hide();
-		    	h('#suggestHead').show();
-		    }
 		    _index = index;
 		}
       	
-      	document.getElementById('searchBtn').addEventListener('tap',function() {
-      		mui.openWindow({
-      			url: 'html/search.html',
-      			id : 'html/search.html'
-      		})
-      	})
    </script>
 </body>
 </html>

@@ -93,6 +93,29 @@
 			.toolBarFont2 {
 				color: #FFFFFF;
 			}
+			.mui-media-body p {
+				text-indent: 0;
+				display: inline;
+			}
+			#stars {
+				float: right;
+				width: 50px;
+				height: 25px;
+			}
+			#stars i {
+				font-size: 10px;
+			}
+			#stars .mui-icon-star-filled{
+				color: #FFB400;
+				font-size: 10px;
+			} 
+			#stars .mui-icon-star {
+				color: #C8C7CC;
+			}
+			#goodPic {
+				width: auto;
+				height: 210px;
+			}
 		</style>
 	</head>
 
@@ -106,7 +129,7 @@
 			<div class="mui-card">
 				<!--内容区-->
 				<div class="mui-card-content">
-					<img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2731824066,2164570968&fm=23&gp=0.jpg" />
+					<img id="goodPic" src="../img/zw.jpg" />
 				</div>
 				<!--页脚，放置补充信息或支持的操作-->
 				<div class="mui-card-footer">
@@ -120,15 +143,23 @@
 				<p class="dollar">￥<span id="integer" class="dollar"></span>.<span id="decimal" class="decimal"></span></p>
 				<p class="goodInfo">快递费 <span id="deliveryFee"></span></p>
 				<p class="goodInfo">月销 <span id="sellNum"></span> 笔</p>
-				<p id="address"></p>
+				<p id="address">.</p>
 			</div>
 
-			<div>
-				<ul class="mui-table-view">
-					<li class="mui-table-view-cell mui-collapse">
-						<a class="mui-navigate-right" href="#">宝贝评论(<span id="commentNum">111</span>)</a>
-						<div class="mui-collapse-content">
-							<p>面板1子内容</p>
+			<div class="mui-card">
+				<div class="mui card-content">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell mui-collapse">
+							<a class="mui-navigate-right" href="#">宝贝评论(<span id="commentNum">111</span>)</a>
+							<div class="mui-collapse-content">
+								<ul id="commentList" class="mui-table-view" style="margin-top: 0px;">
+									<!--
+                                    	作者：shaunjm2018@gmail.com
+                                    	时间：2017-04-30
+                                    	描述：要插入的评论列表信息
+                                    -->
+								</ul>
+							</div>
 						</div>
 					</li>
 				</ul>
@@ -205,8 +236,11 @@
 			var userId = null;
 			var isCollected = false;
 			var isCart = false;
+			var isComment = false;
+			var commentFirstPage = null;
 			mui.plusReady(function() {
 				goodId = plus.webview.currentWebview().goodId;
+				userId = plus.storage.getItem("userId");
 				mui.ajax(url + 'good/show', {
 					data: {
 						id: goodId
@@ -222,8 +256,9 @@
 						console.log(type);
 					}
 				});
-				
-				initUserInfo();
+				initComment(goodId);
+				if(userId == null) return;
+				initUserInfo(userId);
 			})
 
 			var shopId = null;
@@ -239,13 +274,17 @@
 				document.getElementById('shopInfo').innerHTML = data.shop.info;
 				var price = data.price;
 				document.getElementById('integer').innerHTML = parseInt(price);
-				document.getElementById('decimal').innerHTML = price = parseInt(price);
+				document.getElementById('decimal').innerHTML = (price - parseInt(price))*10;
+				document.getElementById('goodPic').src = url + data.pic;
 				document.getElementById('shopHead').src = url + 'img/' + data.shop.head;
 			}
 
 			document.getElementById("toHome").addEventListener('tap', function() {
 				plus.webview.currentWebview().close();
-				plus.webview.getWebviewById('html/search.html').close();
+				var _search = plus.webview.getWebviewById('html/search.html');
+				if(_search != null){
+					_search.close();
+				}
 			})
 			
 			document.getElementById('enter_shop').addEventListener('tap',enter_shop);
@@ -264,6 +303,8 @@
 			}
 			
 			document.getElementById("icon-star").addEventListener('tap',function() {
+				userId = plus.storage.getItem('userId');
+				console.log('123123123'+userId);
 				if(userId == null) {
 					mui.toast("您还未登录,请登录");
 					goLogin();
@@ -309,6 +350,16 @@
 			})
 			
 			document.getElementById('comment').addEventListener('tap',function() {
+				userId = plus.storage.getItem('userId');
+				/*
+				 * 已评论isComment = true，则禁止用户评论
+				 */
+				if(isComment) return;
+				if(userId == null) {
+					mui.toast("您还未登录,请登录");
+					goLogin();
+					return;
+				}
 				mui.openWindow({
 					url: 'comment.html',
 					id : 'comment.html',
@@ -347,11 +398,12 @@
 					}
 				})
 			});
-			
-			function initUserInfo() {
+			/*
+			 * 初始化页面信息
+			 */
+			function initUserInfo(userId) {
 				userId = plus.storage.getItem('userId');
-				if(userId == null) return;
-				mui.ajax(url+'good/isCollected',{
+				mui.ajax(url+'good/initUserInfo',{
 					data: {
 						userId: userId,
 						goodId: goodId
@@ -360,35 +412,108 @@
 					type: 'get',
 					timeout: 10000,
 					success: function(data) {
-						if(data.data) {
+						console.log(JSON.stringify(data));
+						if(data.data[0]) {
 							isCollected = true;								
 							h('.mui-icon-star').addClass('mui-icon-star-filled');
 							h('#CollectP').html('已收藏');
+						}
+						if(data.data[1]) {
+							isCart = true;
+							h('#p_cart').html('已加入购物车');
+						}
+						if(data.data[2]) {
+							isComment = true;
+							h('#comment').html('已评论');
 						}
 					},
 					error: function(type) {
 						console.log(type);
 					}
 				});
-				/*
-				 * 判读用户是否将该商品添加进购物车
-				 */
-				mui.getJSON(url+'good/checkCart',{
-					userId: userId,
-					goodId: goodId
-				},
-				function(data){
-					console.log(JSON.stringify(data));
-					if(data.code == 0) {
-						isCart = true;
-						h('#p_cart').html('已加入购物车');
+			}
+			
+			/*
+			 * 加载3条评论信息
+			 */
+			function initComment(goodId) {
+				userId = plus.storage.getItem('userId');
+				mui.ajax(url+'good/showComment',{
+					data: {
+						goodId: goodId,
+						page : 1
+					},
+					dataType: 'json',
+					type: 'get',
+					timeout: 10000,
+					success: function(date) {
+						console.log(JSON.stringify(date));
+						commentFirstPage = date;
+						drawComment(date);
+					},
+					error: function(type) {
+						console.log(type);
 					}
 				})
+			}
+			
+			function drawComment(data) {
+				var length = data.length;
+				console.log(length);
+				h('#commentNum').html(length);
+				if(length == 0) {
+					h('#commentList').html('<li class="mui-table-view-cell mui-media" style="padding-left: 10px;"><p>还没有人评论，快来抢沙发啊!</p></li>');
+					return;
+				}
+				var commentList = '';
+				var more = '';
+				var star = '';
+				var reply = '';
+				if(length > 3) {
+					length = 3;
+					more = '<li class="mui-table-view-cell mui-media" style="padding-left: 10px;"><a href="javascript:toMore();"><p>--查看更多--</p></a></li>'
+				}
+				for(var i=0;i<length;i++) {
+					var j;
+					for(j=1;j<=data[i].star;j++) {
+						star += '<i class="mui-icon mui-icon-star-filled"></i>'
+					}
+					for(var k=0;k<5-data[i].star;k++) {
+						star += '<i class="mui-icon mui-icon-star"></i>'
+					}
+					if(data[i].reply != null) {
+						reply = '<li class="mui-table-view-cell mui-media" style="padding-left: 10px;"><span>店家回复：</span><p>'+data[i].reply.content+'</p></li>'
+					}
+					var commentItem = '<li class="mui-table-view-cell mui-media" style="padding-left: 10px;">'+
+									            '<img class="mui-media-object mui-pull-left" src="'+ url + data[i].user.head +'">'+
+									            '<div class="mui-media-body">'+
+									                data[i].user.nickname +
+									                '<br><p class="mui-ellipsis">'+ data[i].content +'</p><div id="stars" class="icons mui-inline"  style="margin-left: 6px;">'+
+									                star +
+												'</div></div>'+
+									        		'</li>';
+                	commentList += (commentItem + reply);
+                	star = '';
+                	reply = '';
+				}
+				commentList += more;
+				h('#commentList').html(commentList);
 			}
 			
 			document.getElementById('buy').addEventListener('tap',function(){
 				
 			})
+			
+			function toMore(){
+				mui.openWindow({
+					url: 'commentList.html',
+					id : 'commentList.html',
+					extras: {
+						goodId: goodId,
+						comment: commentFirstPage
+					}
+				})
+			}
 		</script>
 	</body>
 

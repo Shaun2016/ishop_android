@@ -122,6 +122,12 @@
 				},function(data){
 					console.log(JSON.stringify(data));
 				})
+				
+				/*
+				 * 重新加载商品页面
+				 */
+				plus.webview.getWebviewById('goodDetail.html').evalJS('initUserInfo('+userId+');initComment('+goodId+')');
+				mui.back();
 			})
 		</script>
 	</body>

@@ -5,14 +5,30 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" href="../css/mui.min.css" />
 	</head>
 
 	<body>
-		suggest
+		<header class="mui-bar mui-bar-nav bng">
+			<div id="logo"><img src="" width="50"/></div>
+			<div id="searchBtn">
+				请输入商品/店铺	
+			</div>	
+		</header>
+		<div class="mui-content">
+		    suggest
+		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			document.getElementById('searchBtn').addEventListener('tap',function() {
+				console.log("111");
+		      	mui.openWindow({
+		      		url: 'search.html',
+		  			id : 'search.html'
+	    		})
+		    })
 		</script>
 	</body>
 
