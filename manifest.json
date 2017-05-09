@@ -226,7 +226,8 @@
 					"css/mui.css",
 					null,
 					"js/mui.lazyload.js",
-					"js/mui.lazyload.img.js"
+					"js/mui.lazyload.img.js",
+					"html/js/goodAndShop.js"
 				],
 				"refer": [
 					"html/goodDetail.html"
@@ -267,7 +268,8 @@
 				],
 				"refer": [
 					"html/login/login.html",
-					"html/me/address.html"
+					"html/me/address.html",
+					"html/me/collection.html"
 				],
 				"priority": 0
 			},
@@ -429,11 +431,30 @@
 					"css/mui.css",
 					"fonts/mui.ttf",
 					"js/mui.lazyload.js",
-					"js/mui.lazyload.img.js"
+					"js/mui.lazyload.img.js",
+					"html/js/goodAndShop.js"
 				],
 				"refer": [
 					"html/shopDetail.html",
 					"html/goodDetail.html"
+				],
+				"priority": 0
+			},
+			"html/me/collection.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js",
+					"css/mui.css",
+					"html/js/goodAndShop.js",
+					"img/60x60.gif",
+					"js/h.min.js"
+				],
+				"refer": [
+					"html/goodDetail.html",
+					"html/shopDetail.html"
 				],
 				"priority": 0
 			}

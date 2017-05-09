@@ -16,6 +16,7 @@
 		<script type="text/javascript" src="../js/h.min.js" ></script>
 		<script type="text/javascript" src="../js/mui.lazyload.js" ></script>
 		<script type="text/javascript" src="../js/mui.lazyload.img.js" ></script>
+		<script type="text/javascript" src="js/goodAndShop.js" ></script>
 		<script type="text/javascript">
 			mui.init({
 				pullRefresh : {
@@ -50,7 +51,7 @@
 			 * 懒加载
 			 */
 			var lazyLoad = mui('#goodListUl').imageLazyload({
-			    placeholder: '../images/60x60.gif',
+			    placeholder: '../img/60x60.gif',
 			    autoDestroy: false
 			});
 			var page = 1;
@@ -193,27 +194,7 @@
 				}
 				return shopList;
 			}
-			
-			function goodDetail(id) {
-				mui.openWindow({
-					url: 'goodDetail.html',
-					id : 'goodDetail.html',
-					extras: {
-						goodId : id
-					}
-				})
-			}
-			
-			function shopDetail(id) {
-				mui.openWindow({
-					url: 'shopDetail.html',
-					id : 'shopDetail.html',
-					extras: {
-						shopId : id
-					}
-				})
-			}
-			
+						
 		</script>
 	</body>
 

@@ -1,0 +1,240 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<style>
+			.deleteBtn {
+				float: right;
+				width: 30px;
+				height: 30px;
+			}
+			
+			.content {
+				padding: 5px;
+				float: left;
+				width: 100%;
+				background: #EBEBEB;
+				font-style: '宋体';
+			}
+			
+			.mui-media-body {
+				color: #222222;
+			}
+			
+			.name {
+				font: 20px;
+				color: #222222;
+			}
+			
+			.shop {
+				margin-bottom: 8px;
+			}
+			
+			.shop a {
+				color: #555555;
+				size: a5;
+			}
+			
+			.mycheck {
+				width: 28px;
+				height: 28px;
+				margin-top: 50px;
+			}
+			
+			.dlt_button {
+				position: fixed;
+				width: 100%;
+				background: #F7F7F7;
+				bottom: 0;
+				padding: 5px 10px;
+			}
+			
+			.dlt_button .button_dlt_button {
+				float: right;
+			}
+			
+			#goodListUl {
+				margin-bottom: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的收藏</h1>
+			<a id="manage" class="mui-pull-right" style="line-height: 44px;">管理</a>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" id="goodListUl">
+
+			</ul>
+			<div class="dlt_button" hidden>
+				<button id='cental' type="button" class="mui-btn mui-btn-success">取消</button>
+				<div class="button_dlt_button">
+					<button id="dlt" type="button" class="mui-btn mui-btn-danger">删除</button>
+				</div>
+			</div>
+		</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/h.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.lazyload.js"></script>
+		<script type="text/javascript" src="../../js/mui.lazyload.img.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var userId;
+			mui.plusReady(function() {
+				userId = plus.storage.getItem("userId");
+				mui.getJSON(url + 'user/myCollection', { userId: userId }, function(data) {
+					console.log(JSON.stringify(data));
+					drawGood(data);
+					lazyLoad.refresh(true);
+				})
+			})
+
+			/*
+			 * 懒加载
+			 */
+			var lazyLoad = mui('#goodListUl').imageLazyload({
+				placeholder: '../../img/60x60.gif',
+				autoDestroy: false
+			});
+
+			/*
+			 * 加载收藏的商品列表
+			 */
+			function drawGood(data) {
+				var goodList = '';
+				for(var i = 0; i < data.length; i++) {
+					var goodItem = '<li id="' + data[i].id + '" class="mui-table-view-cell mui-media mui-checkbox">' +
+						'<div class="shop"><a href="javascript:toShop(' + data[i].shopId + ');" class="mui-ellipsis">' + data[i].shopName + '    >' + '</a></div>' +
+						'<div class="content">' +
+						'<a href="javascript:goodDetail(' + data[i].id + ');">' +
+						'<img class="mui-media-object mui-pull-left" data-lazyload="' + url + data[i].pic + '">' +
+						'<div class="mui-media-body">' +
+						'<div class="name">' + data[i].name + '</div>' +
+						'<div class="mui-ellipsis">单价：' + data[i].price + '</div>' +
+						'<div class="mui-ellipsis">邮费:' + data[i].deliveryFee + '</div>' +
+						'</div></a></div><div class="deleteBtn" hidden><input name="checkbox" class="mycheck" type="checkbox" value="' + data[i].id + '"/></div></li>';
+					goodList += goodItem;
+				}
+				document.getElementById('goodListUl').innerHTML = goodList;
+			}
+
+			/*
+			 * 进入商品页面
+			 */
+			function goodDetail(id) {
+				mui.openWindow({
+					url: '../goodDetail.html',
+					id: '../goodDetail.html',
+					extras: {
+						goodId: id
+					}
+				})
+			}
+			/*
+			 * 进入店铺
+			 */
+			function toShop(id) {
+				mui.openWindow({
+					url: '../shopDetail.html',
+					id: '../shopDetail.html',
+					extras: {
+						shopId: id
+					}
+				})
+			}
+			/*
+			 * 删除收藏的商品
+			 */
+			function deteleCollection(id) {
+				var _self = this;
+				mui.getJSON(url + 'user/removeCollection', {
+					userId: userId,
+					goodId: id
+				}, function(data) {
+
+				});
+			}
+
+			var flag = true;
+
+			document.getElementById('manage').addEventListener('tap', function() {
+				if(flag) {
+					h(this).html('完成');
+					h('.content').css({ width: '80%' })
+					h('.dlt_button').show();
+					h('.deleteBtn').show();
+					flag = false;
+				} else {
+					h(this).html('管理');
+					msg();
+				}
+			})
+
+			function msg() {
+				h('.content').css({ width: '100%' });
+				h('.deleteBtn').hide();
+				h('.dlt_button').hide();
+				flag = true;
+			}
+
+			document.getElementById('cental').addEventListener('tap', function() {
+				h('#manage').html('管理');
+				msg();
+			})
+
+			document.getElementById('dlt').addEventListener('tap', function() {
+				var checks = document.getElementsByClassName('mycheck');
+				var arr = "{";
+				for(var i = 0; i < checks.length; i++) {
+					if(checks[i].checked) {
+						arr += '"list[' + i + '].userId":' + userId + ',"list[' + i + '].goodId":' + checks[i].value+',';
+					}
+				}
+				console.log(arr);
+				if(arr == '{') {
+					mui.toast('您还没有选中任何收藏')
+					return
+				}
+				arr = arr.substring(0,arr.length-1)
+				arr += '}';
+				
+				var btnArray = ['否', '是'];
+				mui.confirm('您确认删除选中的收藏吗？','iShop' ,btnArray, function(e) {
+					if (e.index == 1) {
+						deleteItem(JSON.parse(arr),checks);
+					}
+				
+				})
+			})
+			
+			function deleteItem(arr,checks) {
+				
+				// ajax
+				mui.ajax(url + "user/removeCollection", {
+					data: arr,
+					dataType: "json",
+					success: function(res) {
+						for(var i = 0; i < checks.length; i++) {
+							if(checks[i].checked) {
+								h('#'+checks[i].value).remove();
+							}
+						}
+						mui.toast('移除收藏成功')
+					},
+					error: function(type) {
+						console.log(type);
+					}
+				})
+			}
+		</script>
+	</body>
+
+</html>

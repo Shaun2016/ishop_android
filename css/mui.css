@@ -2465,10 +2465,10 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
 
 .mui-table-view .mui-media-large .mui-media-object
 {
-    line-height: 100px;
+    line-height: 70px;
 
-    max-width: 100px;
-    height: 100px;
+    max-width: 70px;
+    height: 70px;
 }
 .mui-table-view .mui-media .mui-subtitle
 {
@@ -2476,10 +2476,10 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
 }
 .mui-table-view .mui-media-object
 {
-    line-height: 100px;
+    line-height: 70px;
 
-    max-width: 100px;
-    height: 100px;
+    max-width: 70px;
+    height: 70px;
 }
 .mui-table-view .mui-media-object.mui-pull-left
 {
@@ -2499,10 +2499,10 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
 }
 .mui-table-view .mui-table-view-cell.mui-media-icon .mui-media-object img
 {
-    line-height: 100px;
+    line-height: 50px;
 
-    max-width: 100px;
-    height: 100px;
+    max-width: 50px;
+    height: 50px;
 }
 .mui-table-view .mui-table-view-cell.mui-media-icon .mui-media-object.mui-pull-left
 {
