@@ -2465,10 +2465,10 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
 
 .mui-table-view .mui-media-large .mui-media-object
 {
-    line-height: 70px;
+    line-height: 80px;
 
-    max-width: 70px;
-    height: 70px;
+    max-width: 80px;
+    height: 80px;
 }
 .mui-table-view .mui-media .mui-subtitle
 {
@@ -2476,10 +2476,10 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
 }
 .mui-table-view .mui-media-object
 {
-    line-height: 70px;
+    line-height: 80px;
 
-    max-width: 70px;
-    height: 70px;
+    max-width: 80px;
+    height: 80px;
 }
 .mui-table-view .mui-media-object.mui-pull-left
 {

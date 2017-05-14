@@ -227,7 +227,9 @@
 					null,
 					"js/mui.lazyload.js",
 					"js/mui.lazyload.img.js",
-					"html/js/goodAndShop.js"
+					"html/js/goodAndShop.js",
+					"fonts/mui.ttf",
+					"js/h.min.js"
 				],
 				"refer": [
 					"html/goodDetail.html"

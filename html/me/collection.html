@@ -17,8 +17,7 @@
 				padding: 5px;
 				float: left;
 				width: 100%;
-				background: #EBEBEB;
-				font-style: '宋体';
+				font-style: '黑体';
 			}
 			
 			.mui-media-body {
@@ -42,7 +41,7 @@
 			.mycheck {
 				width: 28px;
 				height: 28px;
-				margin-top: 50px;
+				margin-top: 28px;
 			}
 			
 			.dlt_button {
@@ -59,6 +58,9 @@
 			
 			#goodListUl {
 				margin-bottom: 50px;
+			}
+			#dollar {
+				color:#FFB400
 			}
 		</style>
 	</head>
@@ -124,14 +126,12 @@
 				var goodList = '';
 				for(var i = 0; i < data.length; i++) {
 					var goodItem = '<li id="' + data[i].id + '" class="mui-table-view-cell mui-media mui-checkbox">' +
-						'<div class="shop"><a href="javascript:toShop(' + data[i].shopId + ');" class="mui-ellipsis">' + data[i].shopName + '    >' + '</a></div>' +
 						'<div class="content">' +
 						'<a href="javascript:goodDetail(' + data[i].id + ');">' +
 						'<img class="mui-media-object mui-pull-left" data-lazyload="' + url + data[i].pic + '">' +
 						'<div class="mui-media-body">' +
-						'<div class="name">' + data[i].name + '</div>' +
-						'<div class="mui-ellipsis">单价：' + data[i].price + '</div>' +
-						'<div class="mui-ellipsis">邮费:' + data[i].deliveryFee + '</div>' +
+						'<div class="name">' + data[i].name + '</div></br>' +
+						'<div class="mui-ellipsis" id="dollar">￥' + data[i].price + '</div>' +
 						'</div></a></div><div class="deleteBtn" hidden><input name="checkbox" class="mycheck" type="checkbox" value="' + data[i].id + '"/></div></li>';
 					goodList += goodItem;
 				}
@@ -150,18 +150,6 @@
 					id: '../goodDetail.html',
 					extras: {
 						goodId: id
-					}
-				})
-			}
-			/*
-			 * 进入店铺
-			 */
-			function toShop(id) {
-				mui.openWindow({
-					url: '../shopDetail.html',
-					id: '../shopDetail.html',
-					extras: {
-						shopId: id
 					}
 				})
 			}

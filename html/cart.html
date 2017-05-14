@@ -6,64 +6,171 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.css" rel="stylesheet" />
+		<style>
+			#goodListUl {
+				margin-bottom: 50px;
+			}
+
+			.checkbox {
+				float: left;
+				width: 50px;
+				height: 50px;
+				margin-top: 20px;
+			}
+			
+			.num {
+				float: left;
+				width: 120px;
+				height: 50px;
+				margin-top: 13px;
+			}
+			
+			.delete {
+				float: right;
+			}
+			
+			#price {
+				float: left;
+			}
+			
+			#cartNum {
+				float: right;
+				width: 20px;
+				height: 20px;
+				margin-top: 20px;
+			}
+			
+			.settle {
+				position: fixed;
+				bottom: 0px;
+				width: 100%;
+				height: 55px;
+				border-top:1px solid #C7C7CC;
+				background: #FFFFF;
+			}
+			.settle_check {
+				float: left;
+				width: 50px;
+				height: 30px;
+				margin: 5px 0px 15px 15px;
+			}
+			#qx {
+				width: 50px;
+				height: 50px;
+				line-height: 50px;
+				float: left;
+			}
+		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-		    <h1 class="mui-title">购物车</h1>
-		    <a class="mui-pull-right" style="line-height: 44px;">管理</a>
+			<h1 class="mui-title">购物车</h1>
+			<a id="manage" class="mui-pull-right" style="line-height: 44px;">管理</a>
 		</header>
 		<div class="mui-content">
-		    <ul class="mui-table-view" id="goodListUl"></ul>
+			<ul class="mui-table-view" id="goodListUl">
+				<li class="mui-table-view-cell mui-media">
+					<div class="checkbox mui-checkbox">
+						<input name="checkbox" type="checkbox" value="" />
+					</div>
+					<div>
+						<a href="javascript:goodDetail(data[i].good.id);">
+							<img class="mui-media-object mui-pull-left" data-lazyload="urldata[i].good.pic">
+						</a>
+						<div class="mui-media-body cart">data[i].good.info
+							<p class="mui-ellipsis">data[i].good.size</br>￥data[i].good.price</br></p></div>
+						<div class="mui-media-body edit">
+							<div class="num mui-numbox" data-numbox-min="1">
+								<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+								<input id="test" class="mui-input-numbox" type="number" value="1" readonly/>
+								<button class="mui-btn mui-btn-numbox-plus" type="button">+</button></div>
+							<div class="delete"><button type="button" class="mui-btn mui-btn-danger" style="height: 80px;">删除</button></div></div></div></li>
+			</ul>
+			<div class="settle">
+				<div class="mui-checkbox settle_check">
+					<input name="checkbox" type="checkbox" value="" />
+				</div>
+				<div id="qx">全选</div>
+			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
-		<script type="text/javascript" src="../js/mui.lazyload.js" ></script>
-		<script type="text/javascript" src="../js/mui.lazyload.img.js" ></script>
-		<script type="text/javascript" src="js/goodAndShop.js" ></script>
+		<script type="text/javascript" src="../js/h.min.js"></script>
+		<script type="text/javascript" src="../js/mui.lazyload.js"></script>
+		<script type="text/javascript" src="../js/mui.lazyload.img.js"></script>
+		<script type="text/javascript" src="js/goodAndShop.js"></script>
 		<script type="text/javascript">
 			mui.init();
 			var userId = null;
 			mui.plusReady(function() {
-
+				showCart()
 			});
-			
+
 			/*
 			 * 懒加载
 			 */
 			var lazyLoad = mui('#goodListUl').imageLazyload({
-			    placeholder: '../img/60x60.gif',
-			    autoDestroy: false
+				placeholder: '../img/60x60.gif',
+				autoDestroy: false
 			});
-			
+
 			function showCart() {
 				userId = plus.storage.getItem('userId');
 				if(userId == null) {
 					document.getElementById('goodListUl').innerHTML = "";
 					return;
 				}
-				mui.getJSON(url+'user/myShopCar',{userId:userId},function(data){
+				mui.getJSON(url + 'shopCar/myCart', { userId: userId }, function(data) {
 					var goodList = '';
-					for(var i=0;i<data.length;i++) {
+					for(var i = 0; i < data.length; i++) {
+						if(data[i].good.size == undefined) {
+							data[i].good.size = "";
+						}
 						var goodItem = '<li class="mui-table-view-cell mui-media">'+
-									        '<a href="javascript:goodDetail('+data[i].good.id+');">'+
-									            '<img class="mui-media-object mui-pull-left pic" data-lazyload="' + url + data[i].good.pic + '">'+
-									            '<div class="mui-media-body">'+
-									                data[i].good.name+
-									                '<p class="mui-ellipsis">'+data[i].good.info+'</br>'+data[i].good.shop.name+'</br>'+data[i].num+'</br>'+data[i].time+'</p>'+
-									            '</div></a></li>';
+											'<div class="checkbox mui-checkbox">'+
+												'<input name="checkbox" type="checkbox" value="" />'+
+											'</div>'+
+											'<div>'+
+												'<a href="javascript:goodDetail('+data[i].good.id+');">'+
+													'<img class="mui-media-object mui-pull-left" data-lazyload="'+url+data[i].good.pic+'">'+
+												'</a>'+
+												'<div class="mui-media-body cart">'+data[i].good.info+
+													'<div id="price" class="mui-ellipsis">'+data[i].good.size+'</br>￥'+data[i].good.price+'</div><div id="cartNum">×'+data[i].num+'</div></div>'+
+												'<div class="mui-media-body edit" hidden>'+
+													'<div class="num mui-numbox" data-numbox-min="1">'+
+														'<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>'+
+														'<input id="test" class="mui-input-numbox" type="number" value="'+data[i].num+'" readonly/>'+
+														'<button class="mui-btn mui-btn-numbox-plus" type="button">+</button></div>'+
+													'<div class="delete"><button type="button" class="mui-btn mui-btn-danger" style="height: 80px;">删除</button></div></div></div></li>';
 						goodList += goodItem;
 					}
 					if(goodList == '') {
 						goodList = '<p>还没有任何收藏哟...</p>'
 					}
 					document.getElementById('goodListUl').innerHTML = goodList;
+					mui('.mui-numbox').numbox();
 					/*
 					 * 启动懒加载
 					 */
 					lazyLoad.refresh(true);
 				})
 			}
-			
+
+			var flag = true;
+
+			document.getElementById('manage').addEventListener('tap', function() {
+				if(flag) {
+					h(this).html('完成');
+					h('.cart').hide();
+					h('.edit').show();
+					flag = false;
+				} else {
+					h(this).html('管理');
+					h('.edit').hide();
+					h('.cart').show();
+					flag = true;
+				}
+			})
 		</script>
 	</body>
 
