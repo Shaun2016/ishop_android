@@ -134,7 +134,7 @@
 				<!--页脚，放置补充信息或支持的操作-->
 				<div class="mui-card-footer">
 					<a href="#" class="mui-card-link"><span class="mui-icon-extra mui-icon-extra-heart"></span></a>
-					<a id="comment" href="#" class="mui-card-link">评论</a>
+					<a id="comment" href="#" class="mui-card-link"></a>
 					<a href="#" class="mui-card-link"><span class="mui-icon-extra mui-icon-extra-share"></span></a>
 				</div>
 			</div>
@@ -235,7 +235,6 @@
 			var goodId = null;
 			var userId = null;
 			var isCollected = false;
-			var isCart = false;
 			var isComment = false;
 			var commentFirstPage = null;
 			mui.plusReady(function() {
@@ -258,7 +257,7 @@
 				});
 				initComment(goodId);
 				if(userId == null) return;
-				initUserInfo(userId);
+				isComment(userId);
 			})
 
 			var shopId = null;
@@ -349,36 +348,13 @@
 				}
 			})
 			
-			document.getElementById('comment').addEventListener('tap',function() {
-				userId = plus.storage.getItem('userId');
-				/*
-				 * 已评论isComment = true，则禁止用户评论
-				 */
-				if(isComment) return;
-				if(userId == null) {
-					mui.toast("您还未登录,请登录");
-					goLogin();
-					return;
-				}
-				mui.openWindow({
-					url: 'comment.html',
-					id : 'comment.html',
-					extras: {
-						goodId: goodId
-					}
-				})
-			})
 			document.getElementById('enter_cart').addEventListener('tap',function(){
 				if(userId == null) {
 					mui.toast("您还未登录,请登录");
 					goLogin();
 					return;
 				}
-				if(isCart) {
-					mui.toast('已加入购物车，快去购买吧')
-					return;
-				}
-				isCart = true;
+				/*
 				mui.ajax(url+'good/addShopCar',{
 					data: {
 						userId: userId,
@@ -396,12 +372,12 @@
 					error: function(type) {
 						console.log(type);
 					}
-				})
+				})*/
 			});
 			/*
-			 * 初始化页面信息
+			 * 是否收藏
 			 */
-			function initUserInfo(userId) {
+			function isComment(userId) {
 				userId = plus.storage.getItem('userId');
 				mui.ajax(url+'good/initUserInfo',{
 					data: {
@@ -413,18 +389,10 @@
 					timeout: 10000,
 					success: function(data) {
 						console.log(JSON.stringify(data));
-						if(data.data[0]) {
+						if(data.data) {
 							isCollected = true;								
 							h('.mui-icon-star').addClass('mui-icon-star-filled');
 							h('#CollectP').html('已收藏');
-						}
-						if(data.data[1]) {
-							isCart = true;
-							h('#p_cart').html('已加入购物车');
-						}
-						if(data.data[2]) {
-							isComment = true;
-							h('#comment').html('已评论');
 						}
 					},
 					error: function(type) {

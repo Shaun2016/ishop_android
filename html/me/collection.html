@@ -86,16 +86,28 @@
 		<script type="text/javascript" src="../../js/mui.lazyload.js"></script>
 		<script type="text/javascript" src="../../js/mui.lazyload.img.js"></script>
 		<script type="text/javascript">
-			mui.init();
+			mui.init({
+				gestureConfig:{
+					longtap: true
+				}
+			});
 			var userId;
 			mui.plusReady(function() {
 				userId = plus.storage.getItem("userId");
+				if(userId == null) return;
+				init();
+			})
+
+			/*
+			 * 初始化收藏列表
+			 */
+			function init() {
 				mui.getJSON(url + 'user/myCollection', { userId: userId }, function(data) {
 					console.log(JSON.stringify(data));
 					drawGood(data);
 					lazyLoad.refresh(true);
 				})
-			})
+			}
 
 			/*
 			 * 懒加载
@@ -122,6 +134,9 @@
 						'<div class="mui-ellipsis">邮费:' + data[i].deliveryFee + '</div>' +
 						'</div></a></div><div class="deleteBtn" hidden><input name="checkbox" class="mycheck" type="checkbox" value="' + data[i].id + '"/></div></li>';
 					goodList += goodItem;
+				}
+				if(goodList == '') {
+					goodList = '<p>还没有任何收藏哟...</p>'
 				}
 				document.getElementById('goodListUl').innerHTML = goodList;
 			}
@@ -224,7 +239,8 @@
 					success: function(res) {
 						for(var i = 0; i < checks.length; i++) {
 							if(checks[i].checked) {
-								h('#'+checks[i].value).remove();
+								//h('#'+checks[i].value).hide();
+								init();
 							}
 						}
 						mui.toast('移除收藏成功')
@@ -234,6 +250,7 @@
 					}
 				})
 			}
+			
 		</script>
 	</body>
 

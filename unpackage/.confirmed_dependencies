@@ -71,7 +71,8 @@
 		"refer": [
 			"html/login/login.html",
 			"html/me/address.html",
-			"html/me/collection.html"
+			"html/me/collection.html",
+			"html/login/reg.html"
 		]
 	},
 	"html/login/login.html": {
@@ -108,7 +109,8 @@
 			"html/login/js/app.js",
 			"js/mui.min.js",
 			"fonts/mui.ttf",
-			"css/mui.min.css"
+			"css/mui.min.css",
+			"html/login/js/init.js"
 		],
 		"refer": [
 			"html/me.html",
@@ -189,7 +191,9 @@
 			"css/mui.min.css"
 		],
 		"refer": [
-			"html/login/reg.html"
+			"html/login/reg.html",
+			"html/login/forget_password.html",
+			"html/login/temp_reg.html"
 		]
 	},
 	"html/me/address.html": {
@@ -239,6 +243,16 @@
 		"refer": [
 			"html/goodDetail.html",
 			"html/shopDetail.html"
+		]
+	},
+	"html/login/temp_reg.html": {
+		"resources": [
+			"html/login/css/style.css",
+			"html/login/js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"html/login/js/init.js",
+			"css/mui.min.css"
 		]
 	}
 }

@@ -24,7 +24,7 @@
 			mui.init();
 			var userId = null;
 			mui.plusReady(function() {
-				
+
 			});
 			
 			/*
@@ -52,6 +52,9 @@
 									                '<p class="mui-ellipsis">'+data[i].good.info+'</br>'+data[i].good.shop.name+'</br>'+data[i].num+'</br>'+data[i].time+'</p>'+
 									            '</div></a></li>';
 						goodList += goodItem;
+					}
+					if(goodList == '') {
+						goodList = '<p>还没有任何收藏哟...</p>'
 					}
 					document.getElementById('goodListUl').innerHTML = goodList;
 					/*

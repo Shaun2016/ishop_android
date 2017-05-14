@@ -155,10 +155,7 @@
 					success: function(data) {
 						if(data.code == 0) {
 							mui.toast('登录成功');
-							plus.storage.setItem('userId',data.data.id+'');
-							plus.storage.setItem('nickname',data.data.nickname);
-							plus.storage.setItem('head',url+data.data.head);
-							plus.storage.setItem('phone',data.data.phone);
+							setStorage(data);
 							var _index = plus.webview.getLaunchWebview();
 							_index.evalJS("changSub(1);h('#nav-Footer').find('a').removeClass('mui-active');h('#nav1').addClass('mui-active');");
 							pageInit();

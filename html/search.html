@@ -43,9 +43,14 @@
 			});
 			
 			document.getElementById("search").addEventListener('tap',function() {
+				/*
+				 * 无网络无法发送请求
+				 */
+				/*if(internet()) {
+					return;
+				}*/
 				var input = document.getElementById('input').value;
 				var option = document.getElementById('select').value;
-				console.log(option + input);
 				if(input.trim() == '') {
 					mui.toast('请输入搜索信息');
 					return;

@@ -108,13 +108,12 @@
 						timeout: 10000,
 						success: function(data){
 							if(data.code == 0) {
-								plus.storage.setItem('userId',data.data.id+'');
-								plus.storage.setItem('nickname',data.data.nickname);
-								plus.storage.setItem('head',url+data.data.head);
-								plus.storage.setItem('phone',data.data.phone);
+								setStorage(data);
 								mui.toast('注册成功');
+								var _index = plus.webview.getLaunchWebview();
+								_index.evalJS("changSub(4);h('#nav-Footer').find('a').removeClass('mui-active');h('#nav1').addClass('mui-active');");
 								pageInit();
-								openMe();
+								_index.show();
 							} else {
 								mui.toast(data.msg);
 							}
@@ -126,12 +125,6 @@
 				})
 			})
 			
-			function openMe(nickname,head) {
-				mui.openWindow({
-					url: '../me.html',
-					id : '../me.html'
-				})
-			}
 		</script>
 	</body>
 

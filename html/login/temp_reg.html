@@ -108,13 +108,10 @@
 						timeout: 10000,
 						success: function(data){
 							if(data.code == 0) {
-								plus.storage.setItem('userId',data.data.id+'');
-								plus.storage.setItem('nickname',data.data.nickname);
-								plus.storage.setItem('head',url+data.data.head);
-								plus.storage.setItem('phone',data.data.phone);
+								setStorage(data);
 								mui.toast('注册成功');
 								pageInit();
-								mui.back();
+								plus.webview.getWebviewById('goodDetail.html').show();
 							} else {
 								mui.toast(data.msg);
 							}

@@ -269,7 +269,8 @@
 				"refer": [
 					"html/login/login.html",
 					"html/me/address.html",
-					"html/me/collection.html"
+					"html/me/collection.html",
+					"html/login/reg.html"
 				],
 				"priority": 0
 			},
@@ -310,7 +311,8 @@
 					"html/login/js/app.js",
 					"js/mui.min.js",
 					"fonts/mui.ttf",
-					"css/mui.min.css"
+					"css/mui.min.css",
+					"html/login/js/init.js"
 				],
 				"refer": [
 					"html/me.html",
@@ -346,7 +348,8 @@
 					"html/js/isLogin.js",
 					"html/css/feedback.css",
 					"img/440×300.gif",
-					"img/zw.jpg"
+					"img/zw.jpg",
+					null
 				],
 				"refer": [
 					"index.html",
@@ -399,7 +402,9 @@
 					"css/mui.min.css"
 				],
 				"refer": [
-					"html/login/reg.html"
+					"html/login/reg.html",
+					"html/login/forget_password.html",
+					"html/login/temp_reg.html"
 				],
 				"priority": 0
 			},
@@ -456,6 +461,18 @@
 					"html/goodDetail.html",
 					"html/shopDetail.html"
 				],
+				"priority": 0
+			},
+			"html/login/temp_reg.html": {
+				"resources": [
+					"html/login/css/style.css",
+					"html/login/js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"html/login/js/init.js",
+					"css/mui.min.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

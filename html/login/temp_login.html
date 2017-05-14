@@ -156,10 +156,7 @@
 						
 						if(data.code == 0) {
 							mui.toast('登录成功');
-							plus.storage.setItem('userId',data.data.id+'');
-							plus.storage.setItem('nickname',data.data.nickname);
-							plus.storage.setItem('head',url+data.data.head);
-							plus.storage.setItem('phone',data.data.phone);
+							setStorage(data);
 							pageInit();
 							mui.back();
 						} else {
@@ -173,14 +170,14 @@
 			})
 			regButton.addEventListener('tap',function(event){
 				mui.openWindow({
-					url: 'reg.html',
-					id : 'reg'
+					url: 'temp_reg.html',
+					id : 'temp_reg.html'
 				})
 			});
 			forgetButton.addEventListener('tap',function(){
 				mui.openWindow({
 					url: 'forget_password.html',
-					id : 'forget_password'
+					id : 'forget_password.html'
 				})
 			})
 		</script>
