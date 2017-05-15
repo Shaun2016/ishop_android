@@ -75,9 +75,9 @@
 							//重置上拉
             				mui('#refreshContainer').pullRefresh().refresh(true);
 						},
-						error: function(type) {
-							console.log(type);
-							mui.toast(type)
+						error: function(type,error) {
+							console.log(JSON.stringify(type));
+							mui.toast(JSON.stringify(error))
 						}
 					})
 				} else {

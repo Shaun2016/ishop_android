@@ -1,0 +1,96 @@
+.list {
+	padding-left: 0px;
+}
+
+#goodListUl {
+	margin-bottom: 50px;
+}
+
+.checkbox {
+	float: left;
+	width: 15%;
+	height: 50px;
+	margin-top: 20px;
+}
+
+.content {
+	float: left;
+	width: 85%;
+}
+
+.cart {
+	font-size: 12px;
+}
+
+.num {
+	float: right;
+	width: 120px;
+	height: 50px;
+	margin-top: 13px;
+	margin-right: 10px;
+}
+
+.delete {
+	float: right;
+}
+
+#price {
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+#cartNum {
+	float: right;
+	width: 20px;
+	height: 20px;
+	margin-top: 20px;
+}
+
+.settle {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	height: 50px;
+	border-top: 1px solid #C7C7CC;
+	background: #FCFCFC;
+}
+
+.settle_check {
+	float: left;
+	width: 50px;
+	height: 30px;
+	margin: 5px 0px 15px 8px;
+}
+
+#qx {
+	width: 28%;
+	height: 50px;
+	line-height: 50px;
+	float: left;
+}
+
+#total {
+	float: right;
+	height: 50px;
+	width: 70px;
+	padding-top: 7px;
+	line-height: 20px;
+	font-size: 13px;
+}
+
+#total p {
+	font-size: 10px;
+	margin-left: 22px;
+}
+
+#settleBtn {
+	float: right;
+	width: 100px;
+	height:50px;
+}
+
+#settleBtn button {
+	width: 100px;
+	height:50px;
+}

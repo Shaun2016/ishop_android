@@ -229,7 +229,8 @@
 					"js/mui.lazyload.img.js",
 					"html/js/goodAndShop.js",
 					"fonts/mui.ttf",
-					"js/h.min.js"
+					"js/h.min.js",
+					"html/css/cart.css"
 				],
 				"refer": [
 					"html/goodDetail.html"
