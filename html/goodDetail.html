@@ -150,7 +150,7 @@
 				<div class="mui card-content">
 					<ul class="mui-table-view">
 						<li class="mui-table-view-cell mui-collapse">
-							<a class="mui-navigate-right" href="#">宝贝评论(<span id="commentNum">111</span>)</a>
+							<a class="mui-navigate-right" href="#">宝贝评论(<span id="commentNum"></span>)</a>
 							<div class="mui-collapse-content">
 								<ul id="commentList" class="mui-table-view" style="margin-top: 0px;">
 									<!--
@@ -235,7 +235,6 @@
 			var goodId = null;
 			var userId = null;
 			var isCollected = false;
-			var isComment = false;
 			var commentFirstPage = null;
 			mui.plusReady(function() {
 				goodId = plus.webview.currentWebview().goodId;
@@ -257,7 +256,6 @@
 				});
 				initComment(goodId);
 				if(userId == null) return;
-				isComment(userId);
 			})
 
 			var shopId = null;
@@ -303,7 +301,6 @@
 			
 			document.getElementById("icon-star").addEventListener('tap',function() {
 				userId = plus.storage.getItem('userId');
-				console.log('123123123'+userId);
 				if(userId == null) {
 					mui.toast("您还未登录,请登录");
 					goLogin();
@@ -347,19 +344,21 @@
 					})
 				}
 			})
-			
+			/*
+			 * 添加购物车 
+			 */
 			document.getElementById('enter_cart').addEventListener('tap',function(){
 				if(userId == null) {
 					mui.toast("您还未登录,请登录");
 					goLogin();
 					return;
 				}
-				/*
-				mui.ajax(url+'good/addShopCar',{
+				mui.ajax(url+'shopMS/addShopCar',{
 					data: {
 						userId: userId,
 						goodId: goodId,
-						num   : 1
+						num   : 1,
+						tap   : 2
 					},
 					dataType: 'json',
 					type: 'get',
@@ -367,17 +366,17 @@
 					success: function(data) {
 						console.log(JSON.stringify(data));
 						h('#p_cart').html('已加入购物车');
-						document.getElementById('enter_cart').style.disable = 'true';
 					},
 					error: function(type) {
 						console.log(type);
 					}
-				})*/
+				})
 			});
 			/*
 			 * 是否收藏
 			 */
-			function isComment(userId) {
+			/*
+			function checkComment(userId) {
 				userId = plus.storage.getItem('userId');
 				mui.ajax(url+'good/initUserInfo',{
 					data: {
@@ -400,7 +399,7 @@
 					}
 				});
 			}
-			
+			*/
 			/*
 			 * 加载3条评论信息
 			 */
