@@ -66,8 +66,9 @@
 					var goodList = '';
 					for(var i = 0; i < data.length; i++) {
 						// 如果商品没有类别不显示
-						if(data[i].good.size == undefined) {
-							data[i].good.size = "";
+						var size = '';
+						if(data[i].size != undefined) {
+							size = data[i].size.name;
 						}
 						var goodItem = '<li id="'+data[i].id+'" class="mui-table-view-cell mui-media list">'+
 											'<div class="checkbox mui-checkbox">'+
@@ -78,7 +79,7 @@
 													'<img class="mui-media-object mui-pull-left" data-lazyload="'+url+data[i].good.pic+'">'+
 												'</a>'+
 												'<div class="mui-media-body cart"><div>'+data[i].good.info+
-													'</div><div id="price" class="mui-ellipsis">'+data[i].good.size+'</br><font color="#EC971F">￥'+data[i].good.price+'</font></div><div id="cartNum">×'+data[i].num+'</div></div>'+
+													'</div><div id="price" class="mui-ellipsis">'+size+'</br><font color="#EC971F">￥'+data[i].good.price+'</font></div><div id="cartNum">×'+data[i].num+'</div></div>'+
 												'<div class="mui-media-body edit" hidden>'+
 													'<div class="delete"><button type="button" class="mui-btn mui-btn-danger" style="height: 80px;" onclick="deleteCart('+data[i].id+')">删除</button></div>'+
 													'<div class="num mui-numbox" data-numbox-min="1" data-numbox-max="'+data[i].good.warenum+'">'+

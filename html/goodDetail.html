@@ -174,15 +174,15 @@
 						</div>
 						<div class="mui-content-padded">
 							<div class="shopInfo">
-								<p>111</p>
+								<p>10</p>
 								<p>全部宝贝</p>
 							</div>
 							<div class="shopInfo">
-								<p>111</p>
+								<p>3</p>
 								<p>火热促销</p>
 							</div>
 							<div>
-								<p>111</p>
+								<p>35</p>
 								<p>关注人数</p>
 							</div>
 						</div>
@@ -256,6 +256,7 @@
 				});
 				initComment(goodId);
 				if(userId == null) return;
+				checkCollected(userId);
 			})
 
 			var shopId = null;
@@ -273,7 +274,10 @@
 				document.getElementById('integer').innerHTML = parseInt(price);
 				document.getElementById('decimal').innerHTML = (price - parseInt(price))*10;
 				document.getElementById('goodPic').src = url + data.pic;
-				document.getElementById('shopHead').src = url + 'img/' + data.shop.head;
+				var img = url + 'img/' + data.shop.head;
+				if(data.shop.head == null)
+					img = '../img/shop_Logo.jpg';
+				document.getElementById('shopHead').src = img;
 			}
 
 			document.getElementById("toHome").addEventListener('tap', function() {
@@ -353,12 +357,12 @@
 					goLogin();
 					return;
 				}
-				mui.ajax(url+'shopMS/addShopCar',{
+				mui.ajax(url+'shopCar/addCart',{
 					data: {
 						userId: userId,
 						goodId: goodId,
 						num   : 1,
-						tap   : 2
+						sizeId: 6
 					},
 					dataType: 'json',
 					type: 'get',
@@ -375,10 +379,9 @@
 			/*
 			 * 是否收藏
 			 */
-			/*
-			function checkComment(userId) {
+			function checkCollected(userId) {
 				userId = plus.storage.getItem('userId');
-				mui.ajax(url+'good/initUserInfo',{
+				mui.ajax(url+'good/isCollected',{
 					data: {
 						userId: userId,
 						goodId: goodId
@@ -399,7 +402,6 @@
 					}
 				});
 			}
-			*/
 			/*
 			 * 加载3条评论信息
 			 */

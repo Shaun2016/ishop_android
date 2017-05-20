@@ -148,7 +148,8 @@
 			"html/js/isLogin.js",
 			"html/css/feedback.css",
 			"img/440×300.gif",
-			"img/zw.jpg"
+			"img/zw.jpg",
+			"img/shop_Logo.jpg"
 		],
 		"refer": [
 			"index.html",
