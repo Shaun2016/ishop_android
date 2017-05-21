@@ -233,7 +233,8 @@
 					"html/css/cart.css"
 				],
 				"refer": [
-					"html/goodDetail.html"
+					"html/goodDetail.html",
+					"html/order.html"
 				],
 				"priority": 0
 			},
@@ -475,6 +476,17 @@
 					"fonts/mui.ttf",
 					"html/login/js/init.js",
 					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/order.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"html/css/cart.css",
+					"img/shop_Logo.jpg"
 				],
 				"refer": [],
 				"priority": 0

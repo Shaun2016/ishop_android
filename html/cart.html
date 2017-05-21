@@ -24,10 +24,10 @@
 				</div>
 				<div id="qx">全选</div>
 				<div id="settleBtn">
-					<button type="button" class="mui-btn mui-btn-warning">结算(<span>0</span>)</button>
+					<button id="settleBtn" type="button" class="mui-btn mui-btn-warning">结算(<span>8100</span>)</button>
 				</div>
 				<div id="total">
-					<div>合计：<font color="#FFB400">￥ 0</font></div>	
+					<div>合计：<font color="#FF5400">￥ 8100</font></div>	
 					<p class="mui-ellipsis">不含邮费</p>
 				</div>
 			</div>
@@ -79,7 +79,7 @@
 													'<img class="mui-media-object mui-pull-left" data-lazyload="'+url+data[i].good.pic+'">'+
 												'</a>'+
 												'<div class="mui-media-body cart"><div>'+data[i].good.info+
-													'</div><div id="price" class="mui-ellipsis">'+size+'</br><font color="#EC971F">￥'+data[i].good.price+'</font></div><div id="cartNum">×'+data[i].num+'</div></div>'+
+													'</div><div id="price" class="mui-ellipsis">'+size+'</br><font color="#FF5400">￥'+data[i].good.price+'</font></div><div id="cartNum">×'+data[i].num+'</div></div>'+
 												'<div class="mui-media-body edit" hidden>'+
 													'<div class="delete"><button type="button" class="mui-btn mui-btn-danger" style="height: 80px;" onclick="deleteCart('+data[i].id+')">删除</button></div>'+
 													'<div class="num mui-numbox" data-numbox-min="1" data-numbox-max="'+data[i].good.warenum+'">'+
@@ -167,6 +167,13 @@
 			function changeGoodNum() {
 				
 			}
+			
+			document.getElementById('settleBtn').addEventListener('tap',function() {
+				mui.openWindow({
+					url: 'order.html',
+					id : 'order.html'
+				})
+			})
 		</script>
 	</body>
 

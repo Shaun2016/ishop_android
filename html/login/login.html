@@ -157,9 +157,9 @@
 							mui.toast('登录成功');
 							setStorage(data);
 							var _index = plus.webview.getLaunchWebview();
-							_index.evalJS("changSub(1);h('#nav-Footer').find('a').removeClass('mui-active');h('#nav1').addClass('mui-active');");
+							_index.evalJS("changSub(4);h('#nav-Footer').find('a').removeClass('mui-active');h('#nav1').addClass('mui-active');");
 							pageInit();
-							mui.back();
+							_index.show();
 						} else {
 							mui.toast(data.msg);
 						}

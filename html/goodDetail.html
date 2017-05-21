@@ -48,11 +48,11 @@
 			
 			.dollar {
 				font-size: 35px;
-				color: #FFD700;
+				color: #FF5400;
 			}
 			
 			.decimal {
-				color: #FFD700;
+				color: #FF5400;
 				font-size: 20px;
 			}
 			
@@ -235,6 +235,7 @@
 			var goodId = null;
 			var userId = null;
 			var isCollected = false;
+			var isCart = false;
 			var commentFirstPage = null;
 			mui.plusReady(function() {
 				goodId = plus.webview.currentWebview().goodId;
@@ -357,6 +358,10 @@
 					goLogin();
 					return;
 				}
+				if(isCart) {
+					mui.toast('已添加购物车');
+					return;
+				}
 				mui.ajax(url+'shopCar/addCart',{
 					data: {
 						userId: userId,
@@ -369,7 +374,11 @@
 					timeout: 10000,
 					success: function(data) {
 						console.log(JSON.stringify(data));
-						h('#p_cart').html('已加入购物车');
+						if(data.data) 
+							mui.toast('添加购物车成功');
+						else 
+							mui.toast('已添加购物车');
+						isCart = true;
 					},
 					error: function(type) {
 						console.log(type);

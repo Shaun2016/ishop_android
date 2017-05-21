@@ -40,7 +40,8 @@
 			"html/css/cart.css"
 		],
 		"refer": [
-			"html/goodDetail.html"
+			"html/goodDetail.html",
+			"html/order.html"
 		]
 	},
 	"html/suggest.html": {
@@ -257,6 +258,15 @@
 			"fonts/mui.ttf",
 			"html/login/js/init.js",
 			"css/mui.min.css"
+		]
+	},
+	"html/order.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"html/css/cart.css",
+			"img/shop_Logo.jpg"
 		]
 	}
 }
