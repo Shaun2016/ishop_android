@@ -58,6 +58,10 @@
 				plus.webview.currentWebview().children()[0].evalJS('setValues("'+input+'","'+option+'");getGoodList();');
 			});
 			
+			mui.back = function() {
+				console.log("你点击了回退键");
+				mui.currentWebview.close();
+			}
 		</script>
 	</body>
 

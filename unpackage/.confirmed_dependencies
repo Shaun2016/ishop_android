@@ -150,7 +150,9 @@
 			"html/css/feedback.css",
 			"img/440×300.gif",
 			"img/zw.jpg",
-			"img/shop_Logo.jpg"
+			"img/shop_Logo.jpg",
+			"html/js/goodDetail.js",
+			"img/60x60.gif"
 		],
 		"refer": [
 			"index.html",
@@ -226,7 +228,10 @@
 			"fonts/mui.ttf",
 			"js/mui.lazyload.js",
 			"js/mui.lazyload.img.js",
-			"html/js/goodAndShop.js"
+			"html/js/goodAndShop.js",
+			"html/js/search_good.js",
+			"fonts/mui-icons-extra.ttf",
+			"css/icons-extra.css"
 		],
 		"refer": [
 			"html/shopDetail.html",
