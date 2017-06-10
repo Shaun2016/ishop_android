@@ -151,13 +151,12 @@ function getListByPage() {
 function showGood(data) {
 	var goodList = '';
 	for(var i = 0; i < data.length; i++) {
-		var goodItem = '<li class="mui-table-view-cell mui-media">' +
-			'<a href="javascript:goodDetail(' + data[i].id + ');">' +
+		var goodItem = '<li data-index="' + data[i].id + '" class="mui-table-view-cell mui-media">' +
 			'<img class="mui-media-object mui-pull-left pic" data-lazyload="' + urlImg + data[i].pic + '">' +
 			'<div class="mui-media-body">' +
 			data[i].name +
 			'<p class="mui-ellipsis">' + data[i].info + '</br>' + data[i].shop.address + '</br>￥：<font color="#FF5400">' + data[i].price + '</font></br>本月销量：' + data[i].sellnum + '</p>' +
-			'</div></a></li>';
+			'</div></li>';
 		goodList += goodItem;
 	}
 	return goodList;
@@ -167,13 +166,12 @@ function showShop(data) {
 	data = sort(data);
 	var shopList = '';
 	for(var i = 0; i < data.length; i++) {
-		var shopItem = '<li class="mui-table-view-cell mui-media">' +
-			'<a href="javascript:shopDetail(' + data[i].id + ');">' +
+		var shopItem = '<li data-index="'+data[i].id+'" class="mui-table-view-cell mui-media">' +
 			'<img class="mui-media-object mui-pull-left pic" ' + url + data[i].head + '>' +
 			'<div class="mui-media-body">' +
 			data[i].name +
 			'<p class="mui-ellipsis">' + data[i].info + '</br>' + data[i].address + '</br>' + data[i].tab + '</br>粉丝：' + data[i].fansnum + '</p>' +
-			'</div></a></li>';
+			'</div></li>';
 		shopList += shopItem;
 	}
 	return shopList;
@@ -182,3 +180,8 @@ function showShop(data) {
 function sort(data) {
 	return data;
 }
+
+mui('#goodListUl').on('tap','li',function() {
+	var index = parseInt(this.getAttribute('data-index'));
+	goodDetail(index);
+})

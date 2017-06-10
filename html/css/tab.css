@@ -1,3 +1,170 @@
+.mui-plus .plus {
+	display: inline;
+}
+
+.plus {
+	display: none;
+}
+
+#topPopover {
+	//position: fixed;
+	top: 16px;
+	right: 6px;
+}
+
+#topPopover .mui-popover-arrow {
+	left: auto;
+	right: 6px;
+}
+
+p {
+	text-indent: 22px;
+}
+
+.mui-popover {
+	width: 130px;
+	height: 200px;
+}
+
+.downToTop {
+	padding-top: 10px;
+}
+
+.goodInfo {
+	display: block;
+	float: left;
+	width: 30%;
+}
+
+.dollar {
+	font-size: 35px;
+	color: #FF5400;
+}
+
+.decimal {
+	color: #FF5400;
+	font-size: 20px;
+}
+
+.shopInfo {
+	width: 30%;
+	height: 40px;
+	border-right: 1px solid #555555;
+	float: left;
+}
+
+.toolBar {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	height: 44px;
+	border-top: 1px solid #C7C7CC;
+	background: #FFFFFF;
+	text-align: center;
+}
+
+.toolBar p {
+	text-indent: 0;
+}
+
+.toolBarBox {
+	float: left;
+	width: 14%;
+	height: 44px;
+	border-right: 1px solid #C7C7CC;
+	text-align: center;
+}
+
+.toolBarBox2 {
+	float: left;
+	width: 29%;
+	height: 44px;
+	line-height: 44px;
+}
+
+.toolBarFont {
+	font-size: 11px;
+}
+
+.toolBarFont2 {
+	color: #FFFFFF;
+}
+
+.mui-media-body p {
+	text-indent: 0;
+	display: inline;
+}
+
+#stars {
+	float: right;
+	width: 50px;
+	height: 25px;
+}
+
+#stars i {
+	font-size: 10px;
+}
+
+#stars .mui-icon-star-filled {
+	color: #FFB400;
+	font-size: 10px;
+}
+
+#stars .mui-icon-star {
+	color: #C8C7CC;
+}
+
+#goodPic {
+	width: auto;
+	height: 210px;
+}
+
+.top_tab {
+	top: 0px;
+	position: fixed;
+	height: 40px;
+	width: 100%;
+}
+
+.top_tab a {
+	color: #000000;
+	font-size: small;
+}
+
+.top_tab .tab {
+	width: 33%;
+	height: 40px;
+	float: left;
+	text-align: center;
+	line-height: 40px;
+}
+
+.arrow {
+	font-size: 15px;
+}
+
 .item {
 	margin-bottom: 10px;
+}
+
+.catogary {
+	float: left;
+	width: auto;
+	height: auto;
+	padding: 5px 15px;
+}
+
+.item_tab {
+	margin: 10px 0 20px 10px;
+}
+
+.buyButton {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	padding-right: 20px;
+}
+.tab_img {
+	height: 100px;
+	width: 100px;
 }

@@ -7,19 +7,65 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 	</head>
+
 	<body>
 		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">个人信息</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">个人信息</h1>
 		</header>
 		<div class="mui-content">
-		    
+			<div class="mui-collapse-content">
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+						<label for="nickName">昵称</label>
+						<input id="nickName" type="text" readonly />
+					</div>
+					<div class="mui-input-row">
+						<label for="phone">手机</label>
+						<input id="phone" name="phone" type="text" readonly />
+					</div>
+					<div class="mui-input-row">
+						<label for="email">邮箱</label>
+						<input id="email" name="email" type="text" placeholder="eg: ...@qq.com" readonly/>
+					</div>
+					<div class="mui-input-row">
+						<label for="sex">性别</label>
+						<select id="sex" name="sex" disabled="disabled">
+							<option value="0">男</option>
+							<option value="1">女</option>
+						</select>
+					</div>
+
+					<div class="mui-input-row mui-plus-visible">
+						<label for="count">账户余额</label>
+						<input id="count" type="number" readonly>
+					</div>
+					<div class="mui-button-row">
+						<button class="mui-btn mui-btn-primary" type="button" onclick="return false;">完善个人信息</button>&nbsp;&nbsp;
+					</div>
+				</form>
+			</div>
 		</div>
 		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/h.min.js"></script>
 		<script type="text/javascript">
 			mui.init();
-			mui.plusReady(function(){
-				
+			mui.plusReady(function() {
+				var userId = plus.storage.getItem('userId');
+				var password = plus.storage.getItem('password');
+				mui.getJSON(url+'user/login',{
+					id: userId,
+					password: password
+				},function(data) {
+					console.log(JSON.stringify(data));
+					if(data.code == 0) {
+						h('#email').val(data.data.email);
+						h('#count').val(data.data.count);
+						h('#nickName').val(data.data.nickname);
+						h('#phone').val(data.data.phone);
+						h('#sex').val(data.data.sex);
+					}
+				})
 			})
 		</script>
 	</body>

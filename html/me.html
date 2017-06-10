@@ -15,11 +15,11 @@
 		</div>
 		<div class="mui-content">
 			<ul class="mui-table-view mui-table-view-chevron">
-				<li class="mui-table-view-cell mui-media">
-					<a class="mui-navigate-right" href="#account">
+				<li class="mui-table-view-cell mui-media" id="toDetail">
+					<a class="mui-navigate-right">
 						<img class="mui-media-object mui-pull-left head-img" id="head-img" src="login/images/user-photo.png">
 						<div class="mui-media-body">
-							<h4 id="nickName">Hello MUI</h4>
+							<h4 id="nickName"></h4>
 							<p id="phoneNumber" class='mui-ellipsis'></p>
 						</div>
 					</a>
@@ -28,7 +28,7 @@
 			<ul class="mui-table-view" style="margin-top: 25px;">
 						<li class="mui-table-view-cell">
 							<a class="mui-navigate-right">
-								新消息通知
+								我的订单
 							</a>
 						</li>
 						<li class="mui-table-view-cell">
@@ -45,7 +45,7 @@
 			<ul class="mui-table-view" style="margin-top: 25px;">
 						<li class="mui-table-view-cell">
 							<a id="about" class="mui-navigate-right">
-								关于mui
+								关于iShop
 							</a>
 						</li>
 					</ul>
@@ -75,7 +75,7 @@
 					h('#nickName').html('未登录');
 				} else {
 					h('#login').html('退出登录');
-					h('#head-img').attr('src',plus.storage.getItem('head'));
+					//h('#head-img').attr('src',plus.storage.getItem('head')); //临时 有bug ---改！！！
 					h('#phoneNumber').html('手机号：'+plus.storage.getItem('phone'));
 					h('#nickName').html(plus.storage.getItem('nickname'));
 				}
@@ -126,6 +126,13 @@
 				mui.openWindow({
 					url: 'login/reg.html',
 					id : 'login/reg.html'
+				})
+			})
+			
+			document.getElementById('toDetail').addEventListener('tap',function() {
+				mui.openWindow({
+					url: 'me/userInfo.html',
+					id : 'me/userInfo.html'
 				})
 			})
 		</script>

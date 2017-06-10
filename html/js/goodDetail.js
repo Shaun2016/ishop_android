@@ -2,8 +2,14 @@ mui.init();
 var goodId = null;
 var userId = null;
 var isCollected = false;
-var isCart = false;
+var isTab = false;
 var commentFirstPage = null;
+var tab_num = 0;
+var good_num = 1;
+var tabArr = [];
+//用于保存请求到的good对象传递给order页面
+var good;
+
 mui.plusReady(function() {
 	goodId = plus.webview.currentWebview().goodId;
 	userId = plus.storage.getItem("userId");
@@ -17,6 +23,7 @@ mui.plusReady(function() {
 		success: function(data) {
 			console.log(JSON.stringify(data));
 			showGoodDetail(data);
+			good = data;
 		},
 		error: function(type) {
 			console.log(type);
@@ -29,25 +36,8 @@ mui.plusReady(function() {
 		dataType: 'json',
 		success: function(data) {
 			console.log(JSON.stringify(data));
-			var points = '';
-			var tabPic = document.getElementById('tabPic');
-			var html = '<div class="mui-slider-item"><img src="' + urlImg + data[data.length - 1].img + '" /></div>';
-			for(var i = 0; i < data.length; i++) {
-				var tab = '<div class="mui-slider-item"><img src="' + urlImg + data[i].img + '" /></div>';
-				html += tab;
-				points += '<div class="mui-indicator"></div>';
-				if(i == data.length - 1) {
-					html += '<div class="mui-slider-item"><img src="' + urlImg + data[0].img + '" /></div>';
-				}
-			}
-			tabPic.innerHTML = html;
-			h('#point').html(points);
-			console.log("....." + h('#tabPic').html());
-			//获得slider插件对象
-			var gallery = mui('.mui-slider');
-			gallery.slider({
-				interval: 3000 //自动轮播周期，若为0则不自动播放，默认为0；
-			});
+			tabArr = data;
+			initTab(data);
 		}
 	})
 	initComment(goodId);
@@ -70,6 +60,7 @@ function showGoodDetail(data) {
 	var price = data.price;
 	document.getElementById('integer').innerHTML = parseInt(price);
 	document.getElementById('decimal').innerHTML = (price - parseInt(price)) * 10;
+	h('#goodPic').attr('src',urlImg+data.pic);
 	var img = urlImg + data.shop.head;
 	if(data.shop.head == null)
 		img = '../img/shop_Logo.jpg';
@@ -157,16 +148,16 @@ document.getElementById('enter_cart').addEventListener('tap', function() {
 		goLogin();
 		return;
 	}
-	if(isCart) {
-		mui.toast('已添加购物车');
+	if(!isTab) {
+		mui('#forward').popover('toggle');
 		return;
 	}
 	mui.ajax(url + 'shopCar/addCart', {
 		data: {
 			userId: userId,
 			goodId: goodId,
-			num: num,
-			sizeId: size
+			num: good_num,
+			sizeId: tabArr[tab_num].id
 		},
 		dataType: 'json',
 		type: 'get',
@@ -177,7 +168,6 @@ document.getElementById('enter_cart').addEventListener('tap', function() {
 				mui.toast('添加购物车成功');
 			else
 				mui.toast('已添加购物车');
-			isCart = true;
 		},
 		error: function(type) {
 			console.log(type);
@@ -233,7 +223,9 @@ function initComment(goodId) {
 		}
 	})
 }
-
+/*
+ * 显示评论
+ */
 function drawComment(data) {
 	var length = data.length;
 	console.log(length);
@@ -262,7 +254,7 @@ function drawComment(data) {
 			reply = '<li class="mui-table-view-cell mui-media" style="padding-left: 10px;"><span>店家回复：</span><p>' + data[i].reply.content + '</p></li>'
 		}
 		var commentItem = '<li class="mui-table-view-cell mui-media" style="padding-left: 10px;">' +
-			'<img class="mui-media-object mui-pull-left" src="' + url + data[i].user.head + '">' +
+			'<img class="mui-media-object mui-pull-left" src="' + urlImg + data[i].user.head + '">' +
 			'<div class="mui-media-body">' +
 			data[i].user.nickname +
 			'<br><p class="mui-ellipsis">' + data[i].content + '</p><div id="stars" class="icons mui-inline"  style="margin-left: 6px;">' +
@@ -277,10 +269,6 @@ function drawComment(data) {
 	h('#commentList').html(commentList);
 }
 
-document.getElementById('buy').addEventListener('tap', function() {
-
-})
-
 function toMore() {
 	mui.openWindow({
 		url: 'commentList.html',
@@ -291,3 +279,75 @@ function toMore() {
 		}
 	})
 }
+
+function initTab(data) {
+	if(data.length == 0) return;
+	for(var i=0;i<data.length;i++) {
+		var img = document.createElement('img');
+		img.src=urlImg+data[i].img;
+		h(img).addClass('tab_img');
+		img.style.display = 'none';
+		h(img).appendTo('#tab_img_block');
+		var tab = document.createElement('div');
+		h(tab).addClass('catogary');
+		var button = '<button style="button" class="mui-btn" onclick="selectTab('+i+',this)">'+data[i].name+'</button>'
+		tab.innerHTML = button;
+		h(tab).appendTo('#tab_List');
+	}
+	h('#tab_List').find('button').first().addClass('mui-btn-warning');
+	h('#tab_img_block').find('img').first().show();
+	h('#tab_dollar').html(data[0].price);
+	h('#tab_num').html(data[0].num);
+	h('#tab_name').html(data[0].name);
+	mui('#mui-numbox').numbox().setOption('max',data[0].num);
+	tab_num = 0;
+}
+/*
+ * 选择商品类型，改变选中的类型信息
+ */
+function selectTab(i,obj) {
+	tab_num = i;
+	h('#tab_List').find('.mui-btn-warning').removeClass('mui-btn-warning');
+	h(obj).addClass('mui-btn-warning');
+	h('#tab_img_block').find('img').hide();
+	h('#tab_img_block').find('img').eq(i).show();
+	h('#tab_dollar').html(tabArr[i].price);
+	h('#tab_num').html(tabArr[i].num);
+	h('#tab_name').html(tabArr[i].name);
+	mui('#mui-numbox').numbox().setValue(1);
+	mui('#mui-numbox').numbox().setOption('max',tabArr[i].num);
+}
+
+/*
+ * 确认商品类型的点击事件
+ */
+document.getElementById('confirm_tab').addEventListener('tap',function() {
+	mui('#forward').popover('toggle');
+	good_num = h('#goodNum').val();
+	h('#selectTab').html(tabArr[tab_num].name + ' x ' + good_num);
+	isTab = true;
+	console.log(tabArr[tab_num].id+','+good_num)
+})
+
+/*
+ * 购买点击事件
+ */
+document.getElementById('buy').addEventListener('tap', function() {
+	if(!isTab) {
+		mui('#forward').popover('toggle');
+		return;
+	}
+	var order = {
+		good: good,
+		num : good_num,
+		tab : tabArr[tab_num]
+	}
+	console.log(JSON.stringify(order));
+	mui.openWindow({
+		url: 'order.html',
+		id : 'order.html',
+		extras: {
+			order: order
+		}
+	})
+})

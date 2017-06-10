@@ -274,7 +274,8 @@
 					"html/login/login.html",
 					"html/me/address.html",
 					"html/me/collection.html",
-					"html/login/reg.html"
+					"html/login/reg.html",
+					"html/me/userInfo.html"
 				],
 				"priority": 0
 			},
@@ -356,14 +357,18 @@
 					null,
 					"img/shop_Logo.jpg",
 					"html/js/goodDetail.js",
-					"img/60x60.gif"
+					"img/60x60.gif",
+					"html/css/tab.css",
+					"js/mui.lazyload.js",
+					"js/mui.lazyload.img.js"
 				],
 				"refer": [
 					"index.html",
 					"html/shopDetail.html",
 					"html/comment.html",
 					"html/login/temp_login.html",
-					"html/commentList.html"
+					"html/commentList.html",
+					"html/order.html"
 				],
 				"priority": 0
 			},
@@ -491,7 +496,29 @@
 					"fonts/mui.ttf",
 					"css/mui.min.css",
 					"html/css/cart.css",
-					"img/shop_Logo.jpg"
+					"img/shop_Logo.jpg",
+					"js/h.min.js"
+				],
+				"refer": [
+					"html/order_success.html"
+				],
+				"priority": 0
+			},
+			"html/order_success.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/me/userInfo.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/h.min.js"
 				],
 				"refer": [],
 				"priority": 0

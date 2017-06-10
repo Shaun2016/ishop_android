@@ -8,139 +8,6 @@
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css" />
 		<link rel="stylesheet" href="css/tab.css" />
-		<style>
-			.mui-plus .plus {
-				display: inline;
-			}
-			
-			.plus {
-				display: none;
-			}
-			
-			#topPopover {
-				//position: fixed;
-				top: 16px;
-				right: 6px;
-			}
-			
-			#topPopover .mui-popover-arrow {
-				left: auto;
-				right: 6px;
-			}
-			
-			p {
-				text-indent: 22px;
-			}
-			
-			.mui-popover {
-				width: 130px;
-				height: 200px;
-			}
-			
-			.downToTop {
-				padding-top: 10px;
-			}
-			
-			.goodInfo {
-				display: block;
-				float: left;
-				width: 30%;
-			}
-			
-			.dollar {
-				font-size: 35px;
-				color: #FF5400;
-			}
-			
-			.decimal {
-				color: #FF5400;
-				font-size: 20px;
-			}
-			
-			.shopInfo {
-				width: 30%;
-				height: 40px;
-				border-right: 1px solid #555555;
-				float: left;
-			}
-			.toolBar {
-				position: fixed;
-				bottom: 0px;
-				width: 100%;
-				height: 44px;
-				border-top: 1px solid #C7C7CC;
-				background: #FFFFFF;
-				text-align:center;
-			}
-			.toolBar p {
-				text-indent: 0;
-			}
-			.toolBarBox {
-				float: left;
-				width: 14%;
-				height: 44px;
-				border-right:1px solid #C7C7CC;
-				text-align:center;
-			}
-			.toolBarBox2 {
-				float: left;
-				width: 29%;
-				height: 44px;
-				line-height: 44px;
-			}
-			.toolBarFont {
-				font-size: 11px;
-			}
-			.toolBarFont2 {
-				color: #FFFFFF;
-			}
-			.mui-media-body p {
-				text-indent: 0;
-				display: inline;
-			}
-			#stars {
-				float: right;
-				width: 50px;
-				height: 25px;
-			}
-			#stars i {
-				font-size: 10px;
-			}
-			#stars .mui-icon-star-filled{
-				color: #FFB400;
-				font-size: 10px;
-			} 
-			#stars .mui-icon-star {
-				color: #C8C7CC;
-			}
-			#goodPic {
-				width: auto;
-				height: 210px;
-			}
-			.top_tab {
-				top: 0px;
-				position: fixed;
-				height: 40px;
-				width: 100%;
-			}
-			.top_tab a {
-				color: #000000;
-				font-size: small;
-			}
-			.top_tab .tab {
-				width: 33%;
-				height: 40px;
-				float: left;
-				text-align: center;
-				line-height: 40px;
-			}
-			.arrow {
-				font-size: 15px;
-			}
-			img {
-				max-height: 210px;
-			}
-		</style>
 	</head>
 
 	<body>
@@ -152,10 +19,8 @@
 		<div class="mui-content" style="margin-bottom: 44px;">
 			<div class="mui-card">
 				<!--内容区-->
-				<div class="mui-slider">
-				  <div id="tabPic" class="mui-slider-group mui-slider-loop">
-				  </div>
-				  <div class="mui-slider-indicator" id="point"></div>
+				<div class="mui-card-content">
+					<img id="goodPic" src="../img/zw.jpg" alt="" />
 				</div>
 				<!--页脚，放置补充信息或支持的操作-->
 				<div class="mui-card-footer">
@@ -263,35 +128,36 @@
 		/*
 		 * actionSheet面板
 		 */
-		<div id="forward" class="mui-popover mui-popover-action mui-popover-bottom" style="padding: 10px; background: #ACACB4;">
+		<div id="forward" class="mui-popover mui-popover-action mui-popover-bottom" style="padding: 10px; background-color: #fff; height: auto; width: 100%;">
 			<div class="mui-row">
-				<div style="float: left;"><img src="../img/60x60.gif"/></div>
-				<div style="float: left; padding: 5px 15px;">
-					<div class="item">￥5</div>
-					<div class="item">库存100件</div>
-					<div class="item">已选："橙色"</div>
+				<div id="tab_img_block" style="float: left;"></div>
+				<div style="float: left; padding: 5px 0px 5px 15px;">
+					<div class="item" style="color: #EC971F;">￥<span id="tab_dollar"></span></div>
+					<div class="item">库存<span id="tab_num"></span>件</div>
+					<div class="item" style="width:200px;word-wrap:break-word;">已选："<span id="tab_name"></span>"</div>
 				</div>
 			</div>
-			<div class="mui-row">
-				商品类型
-				<span>1</span>
-				<span>2</span>
-				<span>3</span>
-				<span>4</span>
+			<div id="tab_List" class="mui-row item_tab">
+				<div>商品类型</div>
+				
 			</div>
-			<div class="mui-row">
-				购买数量 
-				<div class="mui-numbox" data-numbox-min='1' data-numbox-max='9'>
+			<div class="mui-row item_tab" style="margin-bottom: 60px;">
+				<span style="margin-right: 15px;">购买数量 </span>
+				<div id="mui-numbox" class="mui-numbox" data-numbox-min='1' data-numbox-max='9'>
 					<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
-					<input id="test" class="mui-input-numbox" type="number" value="5" />
+					<input id="goodNum" class="mui-input-numbox" type="number" value="1" />
 					<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
 				</div>
 			</div>
-			<div><button>确定</button></div>
+			<div class="buyButton">
+				<button id="confirm_tab" type="button" class="mui-btn mui-btn-warning mui-btn-block">确认</button>
+			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/h.min.js"></script>
 		<script src="js/isLogin.js"></script>
+		<script type="text/javascript" src="../js/mui.lazyload.js" ></script>
+		<script type="text/javascript" src="../js/mui.lazyload.img.js" ></script>
 		<script src="js/goodDetail.js"></script>
 	</body>
 

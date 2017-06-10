@@ -74,11 +74,45 @@
 			ul#goodListUl {
 				font-size: 13px;
 			}
+			
 			#settleBtn {
 				background: #FF5400;
 			}
+			
 			#total {
 				line-height: 36px;
+			}
+			.numButton {
+				padding: 0px 0px 5px 15px;
+			}
+			.numButton .numItem {
+				height: 50px;
+				width: 33.33%;
+				float: left;
+			}
+			.first {
+				border-radius: 5px 0px 0px 5px;
+			}
+			.end {
+				border-radius: 0px 5px 5px 0px;
+			}
+			.pwdBlock {
+				padding-left: 15px;
+				margin: 15px 0;
+			}
+			.pwdNum {
+				text-align: center;
+				height: 40px;
+				line-height: 40px;
+				border:1px solid #B5B5B5; 
+				padding: 8px 20px;
+			}
+			.pwdTitle {
+				text-align: center;
+				height: 50px;
+				width: 100%;
+				line-height: 50px;
+				padding-top: 10px;
 			}
 		</style>
 	</head>
@@ -98,71 +132,215 @@
 					<div class="addrContent">
 						<a class="mui-navigate-right">
 							<div class="mui-media-body">
-								收货人:张三&nbsp;&nbsp;&nbsp;&nbsp;13836882325
-								<div class="address">收货地址：黑龙江省哈尔滨工程大学南岗区燎原街道南通大街145号 哈尔滨工程大学10公寓</div>
+								收货人:<span id="receiver"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="phone"></span>
+								<div class="address">收货地址：<span id="location"></span></div>
 							</div>
 						</a>
 					</div>
 				</li>
 			</ul>
-			<div style="height: 4px; width:100%;background: #F4F5F6;">&nbsp;<div/>
-			<ul class="mui-table-view" id="goodListUl">
-				<div class="order_shop">
-					<img class="mui-pull-left" src="../img/shop_Logo.jpg">
-					<div class="mui-media-body shopName">
-						苹果专营店
-					</div>
-				</div>
-				<li class="mui-table-view-cell mui-media list" style="background: #F4F5F6;">
-					<img class="mui-media-object mui-pull-left" src="http://125.223.113.99/img/s2/u=2404749836,2413113021&fm=117&gp=0.jpg">
-					<div class="mui-media-body cart">
-						<div>
-							迷你iwatch，随身携带，小巧方便
-						</div>
-						<div id="price" class="mui-ellipsis">黑色</br>
-							<font color="#FF5400">￥2100</font>
-						</div>
-						<div id="cartNum">
-							×1
+			<div style="height: 4px; width:100%;background: #F4F5F6;">&nbsp;
+				<div/>
+				<ul class="mui-table-view" id="goodListUl">
+					<div class="order_shop">
+						<img class="mui-pull-left" src="../img/shop_Logo.jpg">
+						<div class="mui-media-body shopName">
+							<!--
+                        	作者：shaunjm2018@gmail.com
+                        	时间：2017-06-08
+                        	描述：商店名称
+                        -->
 						</div>
 					</div>
-				</li>
-				<li class="mui-table-view-cell mui-media list" style="background: #F4F5F6;">
-					<img class="mui-media-object mui-pull-left" src="http://125.223.113.99/img/s2/u=885610819,2545118517&fm=23&gp=0.jpg">
-					<div class="mui-media-body">
-						<div>
-							iphone7，64G内存，10G运存
+					<li class="mui-table-view-cell mui-media list" style="background: #F4F5F6;">
+						<img id="tab_img" class="mui-media-object mui-pull-left" src="" style="width: 50px;height: 50px; margin-left: 5px;">
+						<div class="mui-media-body cart">
+							<div id="goodInfo">
+								<!--
+                            	作者：shaunjm2018@gmail.com
+                            	时间：2017-06-08
+                            	描述：商品介绍
+                            -->
+							</div>
+							<div id="price" class="mui-ellipsis"><span id="tab_name"><黑色</span></br>
+								<font color="#FF5400">￥<span id="good_price">2100</span></font>
+							</div>
+							<div id="cartNum">
+								×1
+							</div>
 						</div>
-						<div id="price" class="mui-ellipsis">白色</br>
-							<font color="#FF5400">￥6000</font>
-						</div>
-						<div id="cartNum">
-							×1
+					</li>
+					<li class="mui-table-view-cell">
+						邮费
+						<span id="dileveryFee" class="mui-badge mui-badge-success">0</span>
+					</li>
+					<li class="mui-table-view-cell">
+						配送方式
+						<span class="mui-badge">快递</span>
+					</li>
+				</ul>
+				<div class="settle">
+					<div id="settleBtn">
+						<button id="settleBtn" type="button" class="mui-btn mui-btn-yellow">提交订单</button>
+					</div>
+					<div id="total">
+						<div>合计：
+							<font id="all" color="#FF5400">￥ 8100</font>
 						</div>
 					</div>
-				</li>
-				<li class="mui-table-view-cell">
-					邮费
-					<span class="mui-badge mui-badge-success">0</span>
-				</li>
-				<li class="mui-table-view-cell">
-					配送方式
-					<span class="mui-badge">快递</span>
-				</li>
-			</ul>
-			<div class="settle">
-				<div id="settleBtn">
-					<button id="settleBtn" type="button" class="mui-btn mui-btn-yellow">提交订单</button>
-				</div>
-				<div id="total">
-					<div>合计：<font color="#FF5400">￥ 8100</font></div>	
 				</div>
 			</div>
-		</div>
-		<script src="../js/mui.min.js"></script>
-		<script type="text/javascript">
-			mui.init()
-		</script>
+
+			<!--
+        	作者：shaunjm2018@gmail.com
+        	时间：2017-06-09
+        	描述：actionSheet面板：输入支付密码
+        -->
+			<div id="passwordSheet" class="mui-popover mui-popover-action mui-popover-bottom" style="padding-right: 15px; background-color: #fff; height: auto; width: 100%;">
+				<div class="pwdTitle"><h3>请输入支付密码</h3></div>
+				<div class="mui-row pwdBlock">
+					<div class="mui-col-xs-2 pwdNum first"></div>
+					<div class="mui-col-xs-2 pwdNum"></div>
+					<div class="mui-col-xs-2 pwdNum"></div>
+					<div class="mui-col-xs-2 pwdNum"></div>
+					<div class="mui-col-xs-2 pwdNum"></div>
+					<div class="mui-col-xs-2 pwdNum end"></div>
+				</div>
+				<div class="numButton">
+					<button data-index="1" type="button" class="mui-btn mui-btn-block numItem">1</button>
+					<button data-index="2" type="button" class="mui-btn mui-btn-block numItem">2</button>
+					<button data-index="3" type="button" class="mui-btn mui-btn-block numItem">3</button>
+					<button data-index="4" type="button" class="mui-btn mui-btn-block numItem">4</button>
+					<button data-index="5" type="button" class="mui-btn mui-btn-block numItem">5</button>
+					<button data-index="6" type="button" class="mui-btn mui-btn-block numItem">6</button>
+					<button data-index="7" type="button" class="mui-btn mui-btn-block numItem">7</button>
+					<button data-index="8" type="button" class="mui-btn mui-btn-block numItem">8</button>
+					<button data-index="9" type="button" class="mui-btn mui-btn-block numItem">9</button>
+					<button data-index="" type="button" class="mui-btn mui-btn-block numItem"></button>
+					<button data-index="0" type="button" class="mui-btn mui-btn-block numItem">0</button>
+					<button data-index="-1" type="button" class="mui-btn mui-btn-block numItem"><span class="mui-icon mui-icon-undo" style="font-size: 30px;"></span></button>
+				</div>
+			</div>
+			<script src="../js/mui.min.js"></script>
+			<script type="text/javascript" src="../js/h.min.js"></script>
+			<script type="text/javascript">
+				var order;
+				mui.init();
+				var shop;
+				var good;
+				var tab;
+				var num;
+				var addrId;
+				var userId;
+				mui.plusReady(function() {
+					userId = plus.storage.getItem('userId');
+					mui.getJSON(url + 'user/myDefaultAddr', { userId: userId }, function(data) {
+						console.log(JSON.stringify(data));
+						initAddr(data);
+					})
+					//接收传递的数据
+					order = plus.webview.currentWebview().order;
+					shop = order.good.shop;
+					good = order.good;
+					tab = order.tab;
+					num = order.num;
+					console.log(JSON.stringify(order));
+					initOrder();
+				});
+
+				var total;
+
+				function initOrder() {
+					h('#tab_img').attr('src', urlImg + tab.img);
+					h('.shopName').html(shop.name);
+					h('#goodInfo').html(good.name);
+					h('#tab_name').html(tab.name);
+					h('#good_price').html(tab.price);
+					h('#cartNum').html('x' + num);
+					h('#dileveryFee').html(good.deliveryFee);
+					total = num * tab.price + good.deliveryFee;
+					h('#all').html('￥' + total);
+				}
+
+				function initAddr(data) {
+					h('#receiver').html(data.receiver);
+					h('#phone').html(data.phone);
+					h('#location').html(data.location);
+					addrId = data.id;
+				}
+
+				document.getElementById('settleBtn').addEventListener('tap', function() {
+					//mui('#passwordSheet').popover('toggle');
+					var order = '{"addressId": '+addrId+',"userId": '+userId+',"order_goodList[0].goodId": ' + good.id + ',"order_goodList[0].num": ' + num + ',"order_goodList[0].tabId": ' + tab.id + ',"total":'+total+'}';
+					mui.ajax(url+'order/createOrder',{
+						data: JSON.parse(order),
+						success: function(data) {
+							console.log(JSON.stringify(data));
+							if(data.code == 0) {
+								mui('#passwordSheet').popover('toggle');
+							} else {
+								mui.toast('订单生产失败');
+							}
+						}
+					})
+				})
+				
+				var pwd = [];
+				var orderId;
+				
+				mui('.numButton').on('tap','button',function() {
+					var index = parseInt(this.getAttribute('data-index'));
+					inputNum(index);
+				})
+				
+				function inputNum(i) {
+					if(pwd.length == 6) return;
+					console.log(i);
+					if(i == -1 && pwd.length > 0) {
+						pwd.pop();
+						document.getElementsByClassName('pwdNum')[pwd.length].innerHTML = '';
+						return;
+					}
+					pwd.push(i);
+					document.getElementsByClassName('pwdNum')[pwd.length-1].innerHTML = '<div style="background: #000000; border-radius:10px;width: 20px;height: 20px;"></div>';
+					if(pwd.length == 6) {
+						console.log('密码已满六位交钱，密码为：' + pwd);
+						//发请求交钱
+						mui.ajax(url+'order/pay',{
+							data: {
+								id: userId,
+								payPwd: pwd.join("")
+							},
+							success: function(data) {
+								h('.pwdNum').html('');
+								pwd.splice(0,pwd.length);
+								console.log(JSON.stringify(data));
+								if(data.code == 0) {
+									orderId = data.data.id;
+									mui.toast('支付成功');
+									//进入交易成功详情页
+									toMyOrders();
+								}
+								else
+									mui.toast(data.msg);
+							},
+							error: function(e) {
+								mui.toast(e.msg);
+							}
+						})
+					}
+				}
+				
+				function toMyOrders() {
+					mui.openWindow({
+						url: 'order_success.html',
+						id : 'order_success.html',
+						extras: {
+							orderId: orderId
+						}
+					})
+				}
+			</script>
 	</body>
 
 </html>

@@ -155,6 +155,7 @@
 					success: function(data) {
 						if(data.code == 0) {
 							mui.toast('登录成功');
+							plus.storage.setItem('password',passwordBox.value);
 							setStorage(data);
 							var _index = plus.webview.getLaunchWebview();
 							_index.evalJS("changSub(4);h('#nav-Footer').find('a').removeClass('mui-active');h('#nav1').addClass('mui-active');");
@@ -166,6 +167,7 @@
 					},
 					error: function(xhr,type,errorThrown) {
 						console.log(type);
+						testConnect(type);
 					}
 				})	
 			})
