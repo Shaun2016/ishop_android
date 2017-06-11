@@ -27,7 +27,7 @@
 			</ul> 
 			<ul class="mui-table-view" style="margin-top: 25px;">
 						<li class="mui-table-view-cell">
-							<a class="mui-navigate-right">
+							<a id="myOrder" class="mui-navigate-right">
 								我的订单
 							</a>
 						</li>
@@ -133,6 +133,13 @@
 				mui.openWindow({
 					url: 'me/userInfo.html',
 					id : 'me/userInfo.html'
+				})
+			})
+			
+			document.getElementById('myOrder').addEventListener('tap',function() {
+				mui.openWindow({
+					url: 'me/orders.html',
+					id : 'me/orders.html'
 				})
 			})
 		</script>

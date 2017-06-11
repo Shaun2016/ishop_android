@@ -342,12 +342,18 @@ document.getElementById('buy').addEventListener('tap', function() {
 		num : good_num,
 		tab : tabArr[tab_num]
 	}
+	var arr = [];
+	arr.push(order);
 	console.log(JSON.stringify(order));
 	mui.openWindow({
 		url: 'order.html',
 		id : 'order.html',
 		extras: {
-			order: order
+			order: arr
 		}
 	})
+})
+
+document.getElementById('selectTab').addEventListener('tap',function() {
+	mui('#forward').popover('toggle');
 })

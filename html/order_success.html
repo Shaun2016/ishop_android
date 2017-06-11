@@ -6,23 +6,92 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.sign_box {
+				height: 150px;
+				width: 100%;
+				border-bottom: 1px solid #000000;
+				background: #F0AD4E;
+			}
+			
+			.sign_box .sign_logo {
+				margin: 25px 10px;
+				float: left;
+				max-height: 100px;
+				max-width: 100px;
+			}
+			
+			.sign_box .sign_word {
+				font-size: 25px;
+				float: left;
+				width: 60%;
+				height: 100px;
+				line-height: 100px;
+				margin-top: 25px;
+			}
+		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">交易详情</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">交易详情</h1>
 		</header>
+		<div class="mui-content">
+			<div class="sign_box">
+				<img src="../img/success.jpg" alt="" class="sign_logo" />
+				<div class="sign_word">恭喜你！交易成功</div>
+			</div>
+			<div class="trade_info">
+				<div class="mui-collapse-content">
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>流水号</label>
+							<input type="text" id="id" readonly>
+						</div>
+						<div class="mui-input-row">
+							<label>金额</label>
+							<input type="text" id="total" readonly>
+						</div>
+
+						<div class="mui-input-row mui-plus-visible">
+							<label>时间</label>
+							<input type="text" id="time" readonly>
+						</div>
+						<div class="mui-input-row">
+							<label>交易人</label>
+							<input type="text" id="trader" readonly/>
+						</div>
+						<div style="padding: 10px 12px;"><label for="">订单详情</label>
+							<div id="textarea" style="padding: 10px 12px;"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/h.min.js" ></script>
 		<script type="text/javascript">
 			mui.init()
 			mui.plusReady(function() {
-				var orderId = plus.webview.currentWebview().orderId;
-				showOrder(orderId);
+				var trade = plus.webview.currentWebview().trade;
+				var order = plus.webview.currentWebview().order;
+				showOrder(trade,order);
 			})
-			
-			function showOrder(id) {
-				
+
+			function showOrder(trade,order) {
+				console.log(JSON.stringify(trade))
+				console.log(JSON.stringify(order));
+				h('#total').val(trade.total.toFixed(2));
+				h('#id').val(trade.id);
+				h('#time').val(trade.time);
+				h('#trader').val(plus.storage.getItem('nickname') + ' 转至 ' + order[0].good.shop.name);
+				var goodList = '';
+				for(i in order) {
+					var item = '<p>商品名：'+order[i].good.name+'</P><p>类型：' + order[i].tab.name + '</p><p>金额（含邮费）：￥' +order[i].tab.price + ' + ' + order[i].good.deliveryFee +'</p><p>数量：x' + order[i].num + '</P>';
+					goodList += item;
+				}
+				h('#textarea').html(goodList);
 			}
 		</script>
 	</body>

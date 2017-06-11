@@ -6,13 +6,122 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.mui-control-content {
+				height: 500px;
+			}
+		</style>
 	</head>
 
 	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的订单</h1>
+		</header>
+		<div class="mui-content">
+		    <div style="padding: 10px 10px; position: fixed; width: 100%; z-index: 1; background: #fff;top: 44px;">
+				<div id="segmentedControl" class="mui-segmented-control">
+					<a class="mui-control-item mui-active" href="#item1">待支付</a>
+					<a class="mui-control-item" href="#item2">待发货</a>
+					<a class="mui-control-item" href="#item3">待接收</a>
+					<a class="mui-control-item" href="#item4">待评价</a>
+					<a class="mui-control-item" href="#item5">交易完成</a>
+				</div>
+			</div>
+			<div style="position: relative; margin-top: 60px; z-index: 0;">
+				<div id="item1" class="mui-control-content mui-active">
+					<ul id="pay" class="mui-table-view">
+										
+					</ul>	
+				</div>
+				<div id="item2" class="mui-control-content">
+					<ul id="deliver" class="mui-table-view">
+						
+					</ul>
+				</div>
+				<div id="item3" class="mui-control-content">
+					<ul id="review" class="mui-table-view">
+
+					</ul>
+				</div>
+				<div id="item4" class="mui-control-content">
+					<ul id="commit" class="mui-table-view">
+
+					</ul>
+				</div>
+				<div id="item5" class="mui-control-content">
+					<ul id="finish" class="mui-table-view">
+
+					</ul>
+				</div>
+			</div>
+		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
+			mui.plusReady(function() {
+				var userId = plus.storage.getItem('userId');
+				mui.getJSON(url+'order/myorders',{userId:userId},function(data) {
+					console.log(JSON.stringify(data));
+					groupOrder(data);
+				})
+			})
+			
+			var wait_pay = [];
+			var wait_delivery = [];
+			var wait_review = [];
+			var wait_evaluate = [];
+			var trade_finish = [];
+			
+			/*
+			 * 按订单状态分组
+			 */
+			function groupOrder(data) {
+				for(i in data) {
+					switch (data[i].state){
+						case 0:
+							wait_pay.push(data[i]);
+							document.getElementById('pay').insertAdjacentHTML('beforeend',drawOrders(data[i]));
+							break;
+						case 1:
+							wait_delivery.push(data[i]);
+							document.getElementById('deliver').insertAdjacentHTML('beforeend',drawOrders(data[i]));
+							break;
+						case 2:
+							wait_review.push(data[i]);
+							document.getElementById('review').insertAdjacentHTML('beforeend',drawOrders(data[i]));
+							break;
+						case 3:
+							wait_evaluate.push(data[i]);
+							document.getElementById('commit').insertAdjacentHTML('beforeend',drawOrders(data[i]));
+							break;
+						case 4:
+							trade_finish.push(data[i]);
+							document.getElementById('finish').insertAdjacentHTML('beforeend',drawOrders(data[i]));
+							break;
+						default:
+							break;
+					}
+				}
+			}
+			/*
+			 * 将数组画到页面上
+			 */
+			function drawOrders(data) {
+				var shop = '<div class="order_shop">'+
+					'<img class="mui-pull-left" src="../../img/shop_Logo.jpg" style="width:20px;heigth:20px">'+
+					'<div class="mui-media-body shopName">'+data.order_goodList[0].good.shop.name+'</div></div>';
+				data = data.order_goodList;
+				for(i in data) {
+					var item = '<li class="mui-table-view-cell mui-media list" style="background: #F4F5F6;">'+
+					'<img id="tab_img" class="mui-media-object mui-pull-left" src="'+urlImg+data[i].size.img+'" style="width: 50px;height: 50px; margin-left: 5px;">'+
+					'<div class="mui-media-body cart"><div id="goodInfo">'+ data[i].good.name +
+					'</div><div id="price" class="mui-ellipsis">'+ data[i].size.name +
+					'</br><font color="#FF5400">￥'+data[i].size.price+'</font></div><div id="cartNum">x'+data[i].num+'</div></div></li>';
+					shop += item;
+				}
+				return shop;
+			}
 		</script>
 	</body>
-
 </html>

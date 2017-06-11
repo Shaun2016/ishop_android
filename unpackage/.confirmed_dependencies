@@ -77,7 +77,8 @@
 			"html/me/address.html",
 			"html/me/collection.html",
 			"html/login/reg.html",
-			"html/me/userInfo.html"
+			"html/me/userInfo.html",
+			"html/me/orders.html"
 		]
 	},
 	"html/login/login.html": {
@@ -287,7 +288,9 @@
 		"resources": [
 			"js/mui.min.js",
 			"css/mui.min.css",
-			"fonts/mui.ttf"
+			"fonts/mui.ttf",
+			"img/success.jpg",
+			"js/h.min.js"
 		]
 	},
 	"html/me/userInfo.html": {
@@ -296,6 +299,14 @@
 			"fonts/mui.ttf",
 			"css/mui.min.css",
 			"js/h.min.js"
+		]
+	},
+	"html/me/orders.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"img/shop_Logo.jpg"
 		]
 	}
 }

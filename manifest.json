@@ -275,7 +275,8 @@
 					"html/me/address.html",
 					"html/me/collection.html",
 					"html/login/reg.html",
-					"html/me/userInfo.html"
+					"html/me/userInfo.html",
+					"html/me/orders.html"
 				],
 				"priority": 0
 			},
@@ -508,7 +509,9 @@
 				"resources": [
 					"js/mui.min.js",
 					"css/mui.min.css",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"img/success.jpg",
+					"js/h.min.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -519,6 +522,16 @@
 					"fonts/mui.ttf",
 					"css/mui.min.css",
 					"js/h.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/me/orders.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"img/shop_Logo.jpg"
 				],
 				"refer": [],
 				"priority": 0
