@@ -3,3 +3,7 @@
 #searchBtn{width:70%; height:30px; line-height:30px; margin:7px; border-radius:30px; float:right; 
 background:url(../img/searchBut.png) no-repeat 8px center #FFFFFF; background-size:auto 68%; 
 padding-left:35px; color:#6D6D72; font-size:14px;}
+.myImg {
+	height: 140px;
+	width: 100%;
+}

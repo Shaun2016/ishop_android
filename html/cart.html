@@ -20,14 +20,14 @@
 			</ul>
 			<div class="settle">
 				<div class="mui-checkbox settle_check">
-					<input name="checkbox" type="checkbox" value=""/>
+					<input id="selectAll" name="checkbox" type="checkbox" value=""/>
 				</div>
 				<div id="qx">全选</div>
 				<div id="settleBtn">
-					<button id="settleBtn" type="button" class="mui-btn mui-btn-warning">结算(<span>8100</span>)</button>
+					<button id="settleBtn" type="button" class="mui-btn mui-btn-warning">结算(<span id="settle_amount">0</span>)</button>
 				</div>
 				<div id="total">
-					<div>合计：<font color="#FF5400">￥ 8100</font></div>	
+					<div>合计：<font color="#FF5400">￥ <span id='total_amount'>0</span></font></div>	
 					<p class="mui-ellipsis">不含邮费</p>
 				</div>
 			</div>
@@ -36,145 +36,8 @@
 		<script type="text/javascript" src="../js/h.min.js"></script>
 		<script type="text/javascript" src="../js/mui.lazyload.js"></script>
 		<script type="text/javascript" src="../js/mui.lazyload.img.js"></script>
+		<script type="text/javascript" src="js/cart.js"></script>
 		<script type="text/javascript" src="js/goodAndShop.js"></script>
-		<script type="text/javascript">
-			mui.init();
-			var userId = null;
-			mui.plusReady(function() {
-				showCart()
-			});
-
-			/*
-			 * 懒加载
-			 */
-			var lazyLoad = mui('#goodListUl').imageLazyload({
-				placeholder: '../img/60x60.gif',
-				autoDestroy: false
-			});
-			//保存购物车列表
-			var cart;
-
-			function showCart() {
-				userId = plus.storage.getItem('userId');
-				if(userId == null) {
-					document.getElementById('goodListUl').innerHTML = "";
-					return;
-				}
-				mui.getJSON(url + 'shopCar/myCart', { userId: userId }, function(data) {
-					console.log(JSON.stringify(data));
-					cart = data;
-					var goodList = '';
-					for(var i = 0; i < data.length; i++) {
-						// 如果商品没有类别不显示
-						var size = '';
-						if(data[i].size != undefined) {
-							size = data[i].size.name;
-						}
-						var goodItem = '<li id="'+data[i].id+'" class="mui-table-view-cell mui-media list">'+
-											'<div class="checkbox mui-checkbox">'+
-												'<input name="checkbox" type="checkbox" value="" style="position: initial; margin-left: 10px"/>'+
-											'</div>'+
-											'<div class="content">'+
-												'<a href="javascript:goodDetail('+data[i].good.id+');">'+
-													'<img class="mui-media-object mui-pull-left" data-lazyload="'+urlImg+data[i].good.pic+'">'+
-												'</a>'+
-												'<div class="mui-media-body cart"><div>'+data[i].good.info+
-													'</div><div id="price" class="mui-ellipsis">'+size+'</br><font color="#FF5400">￥'+data[i].good.price+'</font></div><div id="cartNum">×'+data[i].num+'</div></div>'+
-												'<div class="mui-media-body edit" hidden>'+
-													'<div class="delete"><button type="button" class="mui-btn mui-btn-danger" style="height: 80px;" onclick="deleteCart('+data[i].id+')">删除</button></div>'+
-													'<div class="num mui-numbox" data-numbox-min="1" data-numbox-max="'+data[i].good.warenum+'">'+
-														'<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>'+
-														'<input id="test" class="mui-input-numbox" type="number" value="'+data[i].num+'" readonly/>'+
-														'<button class="mui-btn mui-btn-numbox-plus" type="button">+</button></div>'+
-													'</div></div></li>';
-						goodList += goodItem;
-					}
-					if(goodList == '') {
-						goodList = '<p>还没有任何收藏哟...</p>'
-					}
-					document.getElementById('goodListUl').innerHTML = goodList;
-					mui('.mui-numbox').numbox();
-					/*
-					 * 启动懒加载
-					 */
-					lazyLoad.refresh(true);
-				})
-			}
-
-			var flag = true;
-
-			document.getElementById('manage').addEventListener('tap', function() {
-				if(flag) {
-					h(this).html('完成');
-					h('.cart').hide();
-					h('.edit').show();
-					flag = false;
-				} else {
-					h(this).html('管理');
-					h('.edit').hide();
-					h('.cart').show();
-					flag = true;
-					compareNumArray();
-				}
-			})
-			
-			function updateNumArray() {
-				var a = document.getElementsByClassName('mui-input-numbox');
-				console.log(a.length);
-				var arr = [];
-				for(var i=0;i<a.length;i++) {
-					arr.push(a[i].value);
-				}
-				console.log(arr);
-				return arr;
-			}
-			
-			function compareNumArray() {
-				var newArr = updateNumArray();
-				if(cart.length == newArr.length) {
-					for(var i=0;i<newArr.length;i++) {
-						if(newArr[i] != cart[i].num) {
-							console.log(JSON.stringify(cart[i]));
-						}
-					}
-				}
-			}
-			
-			function deleteCart(id) {
-				var btnArray = ['否', '是'];
-				mui.confirm('您是否要移除购物车？','iShop' ,btnArray, function(e) {
-					if (e.index == 1) {
-						mui.getJSON(url + "shopCar/remove",{id:id},function(data) {
-							console.log(JSON.stringify(data));
-							if(data.code == 0 && data.data == 1) {
-								h('#'+id).remove();
-								mui.toast("移除成功");
-								for(var i=0;i<cart.length;i++) {
-									if(cart[i].id = id) {
-										for(var j=i;j<cart.length-1;j++) {
-											cart[j] = cart[j+1];
-										}
-										break;
-									}
-								}
-								updateNumArray();
-							}
-						})
-					}
-				})
-			}
-			
-			function changeGoodNum() {
-				
-			}
-			
-			document.getElementById('settleBtn').addEventListener('tap',function() {
-				mui.openWindow({
-					url: 'order.html',
-					id : 'order.html'
-				})
-			})
-		</script>
 	</body>
 
 </html>

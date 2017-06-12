@@ -17,7 +17,51 @@
 			</div>	
 		</header>
 		<div class="mui-content">
-		    suggest
+		    <div class="mui-slider">
+			  <div id="slider" class="mui-slider-group mui-slider-loop">
+			  	<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img class="myImg" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497304670338&di=d96d5a086291a6fb001b33c8ee5a2293&imgtype=0&src=http%3A%2F%2Fpic6.nipic.com%2F20100325%2F4045730_210147049644_2.jpg" /></a></div>
+			    <div class="mui-slider-item"><a href="#"><img class="myImg" src="http://img1.imgtn.bdimg.com/it/u=746785575,1119893986&fm=23&gp=0.jpg" /></a></div>
+			    <div class="mui-slider-item"><a href="#"><img class="myImg" src="http://img0.imgtn.bdimg.com/it/u=1921077115,1343200541&fm=23&gp=0.jpg" /></a></div>
+			    <div class="mui-slider-item"><a href="#"><img class="myImg" src="http://img4.imgtn.bdimg.com/it/u=754697427,3604885127&fm=23&gp=0.jpg" /></a></div>
+			    <div class="mui-slider-item"><a href="#"><img class="myImg" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497304670338&di=d96d5a086291a6fb001b33c8ee5a2293&imgtype=0&src=http%3A%2F%2Fpic6.nipic.com%2F20100325%2F4045730_210147049644_2.jpg" /></a></div>
+			    <div class="mui-slider-item"><a href="#"><img class="myImg" src="http://img1.imgtn.bdimg.com/it/u=746785575,1119893986&fm=23&gp=0.jpg" /></a></div>
+			  </div>
+			  <div class="mui-slider-indicator" id="point">
+			  	<div class="mui-indicator"></div>
+			  	<div class="mui-indicator"></div>
+			  	<div class="mui-indicator"></div>
+			  	<div class="mui-indicator"></div>
+			  </div>
+			</div>
+			<ul class="mui-table-view">
+			    <li class="mui-table-view-cell mui-media">
+			        <a href="javascript:openInfo('3');">
+			            <img class="mui-media-object mui-pull-left" src="../img/shuijiao.jpg">
+			            <div class="mui-media-body">
+			                幸福
+			                <p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+			            </div>
+			        </a>
+			    </li>
+			    <li class="mui-table-view-cell mui-media">
+			        <a href="javascript:openInfo('1');">
+			            <img class="mui-media-object mui-pull-left" src="../img/muwu.jpg">
+			            <div class="mui-media-body">
+			                木屋
+			                <p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
+			            </div>
+			        </a>
+			    </li>
+			    <li class="mui-table-view-cell mui-media">
+			        <a href="javascript:openInfo('2');">
+			            <img class="mui-media-object mui-pull-left" src="../img/cbd.jpg">
+			            <div class="mui-media-body">
+			                CBD
+			                <p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
+			            </div>
+			        </a>
+			    </li>
+			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript">
@@ -25,6 +69,13 @@
 			mui.plusReady(function(){
 				
 			})
+			
+			//获得slider插件对象
+			var gallery = mui('.mui-slider');
+			gallery.slider({
+			  interval:2000//自动轮播周期，若为0则不自动播放，默认为0；
+			});
+			
 			document.getElementById('searchBtn').addEventListener('tap',function() {
 		      	mui.openWindow({
 		      		url: 'search.html',

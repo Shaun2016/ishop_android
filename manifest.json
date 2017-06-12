@@ -230,7 +230,8 @@
 					"html/js/goodAndShop.js",
 					"fonts/mui.ttf",
 					"js/h.min.js",
-					"html/css/cart.css"
+					"html/css/cart.css",
+					"html/js/cart.js"
 				],
 				"refer": [
 					"html/goodDetail.html",
